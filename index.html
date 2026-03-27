@@ -1,196 +1,338 @@
 <!DOCTYPE html>
-<!-- Declara que este é um documento HTML5 -->
 <html lang="pt-BR">
 <head>
-    <!-- Metadados da página: título, estilos e configurações -->
-    <meta charset="UTF-8" />
-    <!-- Define a codificação de caracteres para acentos e ç -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Faz o site ficar responsivo em celulares -->
-    <title>🩺 Guia de Saúde - Dois Vizinhos/PR</title>
-
-    <!-- Estilo CSS embutido -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Vitalis | Guia de Saúde - Dois Vizinhos/PR</title>
+    <!-- Google Fonts para tipografia refinada -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (ícones) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Reseta márgens e padding de todos os elementos */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        /* Configuração geral da página */
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #4a90e2 0%, #667eea 100%);
-            min-height: 100vh;
-            padding: 20px;
-            color: #333;
+            font-family: 'Inter', sans-serif;
+            background: #f4f7fc;
+            color: #1e2a3e;
+            line-height: 1.5;
+            scroll-behavior: smooth;
         }
-        /* Estiliza o cabeçalho do site */
+
+        /* Efeito de vidro e sombras elegantes */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(2px);
+            border-radius: 32px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.02);
+            transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* HEADER REFINADO */
         header {
-            background: #2c3e50;
-            color: white;
-            text-align: center;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-            margin-bottom: 30px;
+            background: linear-gradient(135deg, #0b2b3b 0%, #1b4f6e 100%);
+            border-radius: 0 0 32px 32px;
+            padding: 28px 32px 32px 32px;
+            margin-bottom: 32px;
             position: relative;
+            color: white;
+            box-shadow: 0 15px 30px -12px rgba(0, 0, 0, 0.2);
         }
+
         header h1 {
-            margin-bottom: 5px;
-            font-size: 28px;
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
+
+        header h1 i {
+            font-size: 2rem;
+            color: #7bc5ae;
+        }
+
         header p {
-            opacity: 0.9;
-            font-size: 16px;
+            opacity: 0.85;
+            margin-top: 8px;
+            font-weight: 400;
+            font-size: 1rem;
         }
-        /* Área do usuário logado no canto superior direito */
+
         .user-info {
             position: absolute;
-            top: 20px;
-            right: 25px;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 8px 15px;
-            border-radius: 25px;
-            font-size: 14px;
+            top: 28px;
+            right: 32px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            padding: 8px 20px;
+            border-radius: 60px;
+            font-size: 0.85rem;
             display: flex;
             align-items: center;
-            gap: 10px;
-            backdrop-filter: blur(5px);
+            gap: 12px;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.2s;
         }
+
         .user-email {
             color: white;
-            font-weight: 500;
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
+
         .logout-btn {
-            background: #e74c3c;
-            color: white;
+            background: rgba(231, 76, 60, 0.9);
             border: none;
-            padding: 4px 12px;
-            border-radius: 20px;
+            padding: 6px 14px;
+            border-radius: 40px;
+            color: white;
+            font-weight: 500;
+            font-size: 0.75rem;
             cursor: pointer;
-            font-size: 12px;
-            transition: all 0.3s;
-        }
-        .logout-btn:hover {
-            background: #c0392b;
-            transform: scale(1.05);
-        }
-        /* Barra de navegação superior (login e agendamento) */
-        .top-nav {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .top-nav .btn {
-            padding: 10px 18px;
-            border-radius: 25px;
-            font-weight: 500;
-            transition: all 0.3s;
-            text-decoration: none;
-            cursor: pointer;
-            border: none;
-            font-size: 14px;
-        }
-        .top-nav .login {
-            background: #3498db;
-            color: white;
-        }
-        .top-nav .scheduler {
-            background: #27ae60;
-            color: white;
-        }
-        .top-nav .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        /* Esconde elementos quando necessário */
-        .hidden {
-            display: none !important;
-        }
-        /* Caixa de pesquisa */
-        .search-box {
-            background: white;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-        .search-box input {
-            width: 100%;
-            padding: 12px 20px;
-            border: 2px solid #ddd;
-            border-radius: 25px;
-            font-size: 16px;
-            outline: none;
-            transition: border 0.3s;
-        }
-        .search-box input:focus {
-            border-color: #4a90e2;
-        }
-        /* Estiliza as seções (hospitais, postos, farmácias) */
-        section {
-            background: white;
-            margin: 20px 0;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-            color: #4a90e2;
-            margin-bottom: 20px;
-            font-size: 24px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        ul {
-            list-style: none;
-        }
-        li {
-            margin: 15px 0;
-            padding: 20px;
-            background: #f9f9fc;
-            border-radius: 12px;
-            border-left: 4px solid #4a90e2;
-            transition: all 0.3s;
-        }
-        li:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-        }
-        .info {
-            font-weight: 500;
-            color: #333;
-            margin-bottom: 10px;
-        }
-        .links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        .btn {
-            padding: 8px 16px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: 500;
-            color: white;
-            transition: all 0.3s;
+            transition: 0.2s;
             display: inline-flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
         }
-        .btn:hover {
-            transform: scale(1.05);
-            opacity: 0.95;
+
+        .logout-btn:hover {
+            background: #c0392b;
+            transform: scale(0.97);
         }
-        .map-btn {
-            background: #2c3e50;
+
+        /* top nav elegante */
+        .top-nav {
+            display: flex;
+            justify-content: flex-end;
+            gap: 16px;
+            margin-bottom: 24px;
         }
-        /* Máscaras dos modais (overlay escuro) */
+
+        .btn-primary, .btn-secondary {
+            border: none;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+        }
+
+        .btn-primary {
+            background: #1e6f5c;
+            color: white;
+            box-shadow: 0 6px 14px rgba(30, 111, 92, 0.2);
+        }
+
+        .btn-primary:hover {
+            background: #0f5243;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #1e6f5c;
+            border: 1px solid #dce7ed;
+        }
+
+        .btn-secondary:hover {
+            background: #eef3f7;
+            border-color: #bdd3de;
+        }
+
+        /* search box premium */
+        .search-box {
+            background: white;
+            padding: 6px 6px 6px 24px;
+            border-radius: 80px;
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e9edf2;
+        }
+
+        .search-box i {
+            color: #8ba0b0;
+            font-size: 1.2rem;
+        }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            padding: 14px 0;
+            font-size: 1rem;
+            background: transparent;
+            outline: none;
+            font-weight: 500;
+            color: #1e2a3e;
+        }
+
+        .search-box input::placeholder {
+            color: #b2c3d0;
+            font-weight: 400;
+        }
+
+        /* grade de cards (seções) */
+        .section-card {
+            background: white;
+            border-radius: 32px;
+            padding: 28px 28px 20px 28px;
+            margin-bottom: 32px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.03);
+            transition: all 0.25s;
+            border: 1px solid #eff3f8;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            border-left: 5px solid #2c9b7a;
+            padding-left: 20px;
+        }
+
+        .section-header h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #153e4b;
+            letter-spacing: -0.2px;
+        }
+
+        .section-header i {
+            font-size: 1.8rem;
+            color: #2c9b7a;
+        }
+
+        /* lista de locais estilo cartão moderno */
+        .grid-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .health-item {
+            background: #fefefe;
+            border-radius: 24px;
+            padding: 20px 24px;
+            transition: all 0.25s;
+            border: 1px solid #edf2f7;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .health-item:hover {
+            border-color: #cbe5de;
+            box-shadow: 0 12px 22px -12px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .info h3 {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 6px;
+            color: #1c4e5c;
+        }
+
+        .info p {
+            color: #4a6272;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .info p i {
+            width: 18px;
+            color: #2c9b7a;
+        }
+
+        .links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .map-link {
+            background: #eef3fc;
+            color: #1e6f5c;
+            padding: 8px 16px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+
+        .map-link:hover {
+            background: #dee9f2;
+            transform: translateY(-1px);
+        }
+
+        /* emergência banner */
+        .emergency-banner {
+            background: linear-gradient(115deg, #122c38 0%, #1a4a5c 100%);
+            border-radius: 28px;
+            padding: 28px 32px;
+            margin-top: 20px;
+            margin-bottom: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .emergency-banner h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .emergency-contacts {
+            display: flex;
+            gap: 32px;
+            font-weight: 500;
+        }
+
+        .emergency-contacts span {
+            background: rgba(255, 255, 255, 0.12);
+            padding: 8px 18px;
+            border-radius: 60px;
+            font-size: 0.9rem;
+        }
+
+        /* Modais refinados */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -198,741 +340,465 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 99;
+            background: rgba(18, 28, 35, 0.75);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
         }
-        /* Caixas dos modais (login, cadastro, agendamento) */
-        .modal {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+
+        .modal-content {
             background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            max-width: 460px;
             width: 90%;
-            max-width: 400px;
-            z-index: 100;
+            border-radius: 40px;
+            padding: 32px 28px;
+            position: relative;
+            box-shadow: 0 35px 45px -15px rgba(0, 0, 0, 0.3);
+            animation: fadeUp 0.2s ease;
         }
-        .modal h3 {
-            margin-bottom: 15px;
-            color: #4a90e2;
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        .modal input {
+
+        .modal-content h3 {
+            font-size: 1.7rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #1a5d6e;
+        }
+
+        .modal-content input, .modal-content select {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
+            padding: 14px 16px;
+            margin-bottom: 16px;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 28px;
+            font-size: 0.9rem;
+            transition: 0.2s;
+            background: #fefefe;
+            font-family: 'Inter', sans-serif;
         }
-        .modal select {
+
+        .modal-content input:focus, .modal-content select:focus {
+            border-color: #2c9b7a;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(44, 155, 122, 0.2);
+        }
+
+        .modal-content button {
+            background: #1e6f5c;
             width: 100%;
-            padding: 10px;
-            margin-bottom: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-        }
-        .modal button {
-            background: #3498db;
-            color: white;
+            padding: 14px;
             border: none;
-            padding: 10px 15px;
-            border-radius: 8px;
-            font-size: 16px;
+            border-radius: 40px;
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
             cursor: pointer;
-            width: 100%;
+            transition: 0.2s;
+            margin-top: 8px;
         }
-        .modal button:hover {
-            background: #2980b9;
+
+        .modal-content button:hover {
+            background: #0e5a49;
         }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            font-size: 26px;
+            cursor: pointer;
+            color: #94a3b8;
+            transition: 0.2s;
+        }
+
+        .close-modal:hover {
+            color: #1e2a3e;
+        }
+
+        .error-message {
+            color: #e25c5c;
+            font-size: 0.75rem;
+            margin-top: -12px;
+            margin-bottom: 12px;
+            display: none;
+        }
+
         .modal-footer {
-            margin-top: 15px;
             text-align: center;
-            font-size: 14px;
-            color: #666;
+            margin-top: 20px;
+            font-size: 0.85rem;
         }
+
         .modal-footer a {
-            color: #4a90e2;
+            color: #1e6f5c;
+            font-weight: 600;
             text-decoration: none;
             cursor: pointer;
         }
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 20px;
-            cursor: pointer;
-            color: #999;
+
+        .hidden {
+            display: none !important;
         }
-        .close-btn:hover {
-            color: #333;
+
+        footer {
+            text-align: center;
+            padding: 24px;
+            font-size: 0.8rem;
+            color: #6c868e;
+            border-top: 1px solid #e2edf2;
+            margin-top: 20px;
         }
-        /* Mensagem de erro */
-        .error-message {
-            color: #e74c3c;
-            font-size: 12px;
-            margin-top: -8px;
-            margin-bottom: 10px;
-            display: none;
-        }
-        /* Estilos responsivos para telas menores */
-        @media (max-width: 768px) {
-            h2 {
-                font-size: 20px;
-            }
-            .links {
-                flex-direction: column;
-            }
-            .modal {
-                padding: 20px;
-                width: 95%;
-            }
+
+        @media (max-width: 760px) {
             .user-info {
                 position: relative;
                 top: 0;
                 right: 0;
-                margin-top: 15px;
+                margin-top: 20px;
                 justify-content: center;
-                background: rgba(0,0,0,0.3);
+                width: fit-content;
             }
             header {
-                padding-bottom: 20px;
+                text-align: center;
+                padding: 20px;
+            }
+            .top-nav {
+                justify-content: center;
+            }
+            .health-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+            .emergency-banner {
+                flex-direction: column;
+                gap: 18px;
+                text-align: center;
+            }
+            .section-header h2 {
+                font-size: 1.3rem;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- ==================== CABEÇALHO PRINCIPAL ==================== -->
+<div class="container">
     <header>
-        <h1>🩺 Guia de Saúde - Dois Vizinhos/PR</h1>
-        <p>Agende consultas, localize estabelecimentos e onde precisar</p>
-        
-        <!-- Área do usuário logado - aparece apenas quando o usuário está autenticado -->
+        <h1><i class="fas fa-leaf"></i> Vitalis Saúde</h1>
+        <p>Guia inteligente de serviços médicos · Dois Vizinhos/PR</p>
         <div id="userInfoArea" class="user-info hidden">
             <span class="user-email" id="userEmailDisplay"></span>
-            <button class="logout-btn" onclick="fazerLogout()">🚪 Sair</button>
+            <button class="logout-btn" onclick="fazerLogout()"><i class="fas fa-sign-out-alt"></i> Sair</button>
         </div>
     </header>
 
-    <!-- ==================== BARRA DE NAVEGAÇÃO SUPERIOR ==================== -->
     <div class="top-nav">
-        <!-- Botão de login/cadastro - só aparece quando NÃO está logado -->
-        <a href="#" id="loginButton" class="btn login" onclick="abrirLogin()">🔑 Entrar / Criar conta</a>
-        <!-- Botão para agendar consulta - aparece sempre -->
-        <a href="#" class="btn scheduler" onclick="abrirAgendamento()">📅 Agendar consulta</a>
+        <button id="loginButton" class="btn-secondary" onclick="abrirLogin()"><i class="fas fa-user-circle"></i> Entrar / Criar conta</button>
+        <button class="btn-primary" onclick="abrirAgendamento()"><i class="fas fa-calendar-plus"></i> Agendar consulta</button>
     </div>
 
-    <!-- ==================== CAIXA DE PESQUISA ==================== -->
     <div class="search-box">
-        <input type="text" id="search" placeholder="🔍 Digite nome do hospital/posto/farmácia..." />
+        <i class="fas fa-search"></i>
+        <input type="text" id="search" placeholder="Pesquise por unidade de saúde, hospital, farmácia ou posto...">
     </div>
 
-    <!-- ==================== SEÇÃO DE HOSPITAIS E UPA 24H ==================== -->
-    <section id="hospitais">
-        <h2>🏥 Hospitais & UPA 24h</h2>
-        <ul>
-            <li>
-                <div class="info">
-                    <strong>Hospital Pró‑Vida</strong><br />
-                    Rua Inês Pinzon, 611 - Centro Norte
-                </div>
-                <div class="links">
-                    <a href="https://www.google.com/maps/search/?api=1&query=Rua+Inês+Pinzon+611,+85660-000+Dois+Vizinhos+-+PR" target="_blank" class="btn map-btn">🗺️ Abrir Mapa</a>
-                </div>
-            </li>
-            <li>
-                <div class="info">
-                    <strong>UPA 24 Horas</strong><br />
-                    Av. Prefeito Dedi B. Montagner, 425 - Centro
-                </div>
-                <div class="links">
-                    <a href="https://www.google.com/maps/search/?api=1&query=Av.+Prefeito+Dedi+B.+Montagner+425,+85660-000+Dois+Vizinhos+-+PR" target="_blank" class="btn map-btn">🗺️ Abrir Mapa</a>
-                </div>
-            </li>
-        </ul>
-    </section>
-
-    <!-- ==================== SEÇÃO DE POSTOS DE SAÚDE (ESF) ==================== -->
-    <section id="postos">
-        <h2>🏠 Postos de Saúde (ESF)</h2>
-        <ul>
-            <li>
-                <div class="info">
-                    <strong>ESF da Luz</strong><br />
-                    Rua Paulo Antonio de Godoy, 271 - Bairro da Luz
-                </div>
-                <div class="links">
-                    <a href="https://www.google.com/maps/search/?api=1&query=Rua+Paulo+Antonio+de+Godoy+271,+Da+Luz,+Dois+Vizinhos+-+PR" target="_blank" class="btn map-btn">🗺️ Mapa</a>
-                </div>
-            </li>
-            <li>
-                <div class="info">
-                    <strong>ESF da Colina</strong><br />
-                    Rua dos Girassóis, 349 - Jardim da Colina
-                </div>
-                <div class="links">
-                    <a href="https://www.google.com/maps/search/?api=1&query=Rua+dos+Girassóis+349,+Jardim+da+Colina,+Dois+Vizinhos+-+PR" target="_blank" class="btn map-btn">🗺️ Mapa</a>
-                </div>
-            </li>
-            <li>
-                <div class="info">
-                    <strong>ESF Santa Luzia</strong><br />
-                    Rua Argentina - Santa Luzia
-                </div>
-                <div class="links">
-                    <a href="https://www.google.com/maps/search/?api=1&query=Rua+Argentina,+Santa+Luzia,+Dois+Vizinhos+-+PR" target="_blank" class="btn map-btn">🗺️ Mapa</a>
-                </div>
-            </li>
-            <li>
-                <div class="info">
-                    <strong>ESF Centro Norte</strong><br />
-                    Av. Dedi Barichello Montagner - Centro Norte
-                </div>
-                <div class="links">
-                    <a href="https://www.google.com/maps/search/?api=1&query=Av.+Dedi+Barichello+Montagner,+Centro+Norte,+Dois+Vizinhos+-+PR" target="_blank" class="btn map-btn">🗺️ Mapa</a>
-                </div>
-            </li>
-            <li>
-                <div class="info">
-                    <strong>ESF Sagrada Família</strong><br />
-                    Av. Rio Grande do Sul, 1291
-                </div>
-                <div class="links">
-                    <a href="https://www.google.com/maps/search/?api=1&query=Av.+Rio+Grande+do+Sul+1291,+Sagrada+Família,+Dois+Vizinhos+-+PR" target="_blank" class="btn map-btn">🗺️ Mapa</a>
-                </div>
-            </li>
-            <li>
-                <div class="info">
-                    <strong>ESF Centro Sul</strong><br />
-                    Rua Mato Grosso, 484 - Centro Sul
-                </div>
-                <div class="links">
-                    <a href="https://www.google.com/maps/search/?api=1&query=Rua+Mato+Grosso+484,+Centro+Sul,+Dois+Vizinhos+-+PR" target="_blank" class="btn map-btn">🗺️ Mapa</a>
-                </div>
-            </li>
-        </ul>
-    </section>
-
-    <!-- ==================== SEÇÃO DE FARMÁCIAS ==================== -->
-    <section id="farmacias">
-        <h2>💊 Farmácias (principais)</h2>
-        <ul>
-            <li>
-                <div class="info">
-                    <strong>Farmácia São João</strong><br />
-                    Rua Sete de Setembro, 228 - Centro<br />
-                    Tel: (46) 3536-9696
-                </div>
-                <div class="links">
-                    <a href="https://www.google.com/maps/search/?api=1&query=Rua+Sete+de+Setembro+228,+85660-000+Dois+Vizinhos+-+PR" target="_blank" class="btn map-btn">🗺️ Mapa</a>
-                </div>
-            </li>
-            <li>
-                <div class="info">
-                    <strong>Farmácia Santo Antônio</strong><br />
-                    Rua Sete de Setembro, 249 - Centro
-                </div>
-                <div class="links">
-                    <a href="https://www.google.com/maps/search/?api=1&query=Rua+Sete+de+Setembro+249,+85660-000+Dois+Vizinhos+-+PR" target="_blank" class="btn map-btn">🗺️ Mapa</a>
-                </div>
-            </li>
-            <li>
-                <div class="info">
-                    <strong>Coperfarma</strong><br />
-                    Av. Dedi Barichello Montagner, 418 - Centro<br />
-                    Tel: (46) 3581-1170
-                </div>
-                <div class="links">
-                    <a href="https://www.google.com/maps/search/?api=1&query=Av.+Dedi+Barichello+Montagner+418,+85660-000+Dois+Vizinhos+-+PR" target="_blank" class="btn map-btn">🗺️ Mapa</a>
-                </div>
-            </li>
-            <li>
-                <div class="info">
-                    <strong>Farmácia São Rafael</strong><br />
-                    Av. Presidente Kennedy, 436 - Centro Sul
-                </div>
-                <div class="links">
-                    <a href="https://www.google.com/maps/search/?api=1&query=Av.+Presidente+Kennedy+436,+85660-000+Dois+Vizinhos+-+PR" target="_blank" class="btn map-btn">🗺️ Mapa</a>
-                </div>
-            </li>
-        </ul>
-    </section>
-
-    <!-- ==================== SEÇÃO DE EMERGÊNCIAS ==================== -->
-    <section style="background: #2c3e50; color: white; text-align: center; border-radius: 15px; padding: 20px; margin-top: 30px;">
-        <h2 style="color: white;">🚨 EMERGÊNCIAS</h2>
-        <div style="font-size: 16px;">
-            <strong>UPA 24h:</strong> (46) 99911-9508<br>
-            <strong>SAMU:</strong> 192 | <strong>Polícia:</strong> 190
+    <!-- Hospitais -->
+    <div class="section-card" id="hospitais">
+        <div class="section-header">
+            <i class="fas fa-hospital-user"></i>
+            <h2>Hospitais & UPA 24h</h2>
         </div>
-    </section>
-
-    <!-- ==================== MODAL DE LOGIN ==================== -->
-    <div id="loginModal" class="modal-overlay">
-        <div class="modal">
-            <span class="close-btn" onclick="fecharModal('loginModal')">&times;</span>
-            <h3>🔐 Entrar na sua conta</h3>
-            <input type="email" id="loginEmail" placeholder="E-mail" />
-            <input type="password" id="loginSenha" placeholder="Senha" />
-            <div id="loginError" class="error-message">❌ E-mail ou senha incorretos!</div>
-            <button onclick="fazerLogin()">Entrar</button>
-            <div class="modal-footer">
-                Não tem conta? <a onclick="mostrarCadastro()">Cadastre-se</a>
+        <div class="grid-list">
+            <div class="health-item">
+                <div class="info">
+                    <h3>🏥 Hospital Pró‑Vida</h3>
+                    <p><i class="fas fa-location-dot"></i> Rua Inês Pinzon, 611 - Centro Norte</p>
+                </div>
+                <div class="links"><a href="https://www.google.com/maps/search/?api=1&query=Rua+Inês+Pinzon+611,+85660-000+Dois+Vizinhos+-+PR" target="_blank" class="map-link"><i class="fas fa-map-marker-alt"></i> Mapa</a></div>
+            </div>
+            <div class="health-item">
+                <div class="info">
+                    <h3>⏳ UPA 24 Horas</h3>
+                    <p><i class="fas fa-location-dot"></i> Av. Prefeito Dedi B. Montagner, 425 - Centro</p>
+                </div>
+                <div class="links"><a href="https://www.google.com/maps/search/?api=1&query=Av.+Prefeito+Dedi+B.+Montagner+425,+85660-000+Dois+Vizinhos+-+PR" target="_blank" class="map-link"><i class="fas fa-map-marker-alt"></i> Mapa</a></div>
             </div>
         </div>
     </div>
 
-    <!-- ==================== MODAL DE CADASTRO ==================== -->
-    <div id="cadastroModal" class="modal-overlay">
-        <div class="modal">
-            <span class="close-btn" onclick="fecharModal('cadastroModal')">&times;</span>
-            <h3>📝 Criar Nova Conta</h3>
-            <input type="text" id="cadastroNome" placeholder="Nome completo" />
-            <input type="email" id="cadastroEmail" placeholder="E-mail" />
-            <input type="password" id="cadastroSenha" placeholder="Senha" />
-            <input type="password" id="cadastroConfirma" placeholder="Confirmar senha" />
-            <div id="cadastroError" class="error-message">❌ E-mail já cadastrado ou senhas não conferem!</div>
-            <button onclick="fazerCadastro()">Cadastrar</button>
-            <div class="modal-footer">
-                Já tem conta? <a onclick="mostrarLogin()">Faça login</a>
-            </div>
+    <!-- Postos ESF -->
+    <div class="section-card" id="postos">
+        <div class="section-header">
+            <i class="fas fa-people-arrows"></i>
+            <h2>ESF · Postos de Saúde</h2>
+        </div>
+        <div class="grid-list" id="postosList">
+            <!-- itens via JS ou inline para pesquisa, mas melhor estrutura inline: -->
         </div>
     </div>
 
-    <!-- ==================== MODAL DE AGENDAMENTO ==================== -->
-    <div id="agendamentoModal" class="modal-overlay">
-        <div class="modal">
-            <span class="close-btn" onclick="fecharModal('agendamentoModal')">&times;</span>
-            <h3>📅 Agendar Consulta</h3>
-            <input type="text" id="agendaNome" placeholder="Seu nome" />
-            <input type="tel" id="agendaTelefone" placeholder="Telefone para contato" />
-            <select id="agendaLocal">
-                <option value="">Selecione o local</option>
-                <option value="Hospital Pró-Vida">Hospital Pró-Vida</option>
-                <option value="UPA 24h">UPA 24h</option>
-                <option value="ESF da Luz">ESF da Luz</option>
-                <option value="ESF da Colina">ESF da Colina</option>
-                <option value="ESF Santa Luzia">ESF Santa Luzia</option>
-                <option value="ESF Centro Norte">ESF Centro Norte</option>
-                <option value="ESF Sagrada Família">ESF Sagrada Família</option>
-                <option value="ESF Centro Sul">ESF Centro Sul</option>
-            </select>
-            <input type="date" id="agendaData" />
-            <input type="time" id="agendaHora" />
-            <select id="agendaEspecialidade">
-                <option value="">Selecione a especialidade</option>
-                <option value="Clínico Geral">Clínico Geral</option>
-                <option value="Pediatria">Pediatria</option>
-                <option value="Ginecologia">Ginecologia</option>
-                <option value="Odontologia">Odontologia</option>
-                <option value="Enfermagem">Enfermagem</option>
-            </select>
-            <button onclick="confirmarAgendamento()">Confirmar Agendamento</button>
+    <!-- Farmácias -->
+    <div class="section-card" id="farmacias">
+        <div class="section-header">
+            <i class="fas fa-prescription-bottle"></i>
+            <h2>Farmácias & Drogarias</h2>
         </div>
+        <div class="grid-list" id="farmaciasList"></div>
     </div>
 
-    <!-- ==================== JAVASCRIPT ==================== -->
-    <script>
-        // ==================== BANCO DE DADOS LOCAL (localStorage) ====================
-        
-        /**
-         * Chave utilizada para armazenar os usuários no localStorage
-         */
-        const USUARIOS_STORAGE_KEY = 'guiaSaude_usuarios';
-        
-        /**
-         * Chave para armazenar o usuário atualmente logado
-         */
-        const USUARIO_LOGADO_KEY = 'guiaSaude_usuarioLogado';
-        
-        /**
-         * Retorna a lista de usuários cadastrados
-         * Se não houver nenhum, cria um usuário padrão para teste
-         * @returns {Array} Lista de usuários
-         */
-        function getUsuarios() {
-            let usuarios = localStorage.getItem(USUARIOS_STORAGE_KEY);
-            if (usuarios) {
-                return JSON.parse(usuarios);
-            } else {
-                // Cria um usuário padrão para teste
-                const usuariosPadrao = [
-                    { 
-                        id: 1, 
-                        nome: 'Usuário Teste', 
-                        email: 'teste@email.com', 
-                        senha: '123456' 
-                    }
-                ];
-                localStorage.setItem(USUARIOS_STORAGE_KEY, JSON.stringify(usuariosPadrao));
-                return usuariosPadrao;
-            }
+    <!-- Emergência -->
+    <div class="emergency-banner">
+        <h2><i class="fas fa-ambulance"></i> Emergências 24h</h2>
+        <div class="emergency-contacts">
+            <span><i class="fas fa-phone-alt"></i> UPA: (46) 99911-9508</span>
+            <span><i class="fas fa-phone-alt"></i> SAMU: 192</span>
+            <span><i class="fas fa-shield-alt"></i> Polícia: 190</span>
+        </div>
+    </div>
+    <footer>Vitalis Saúde — tecnologia e acolhimento para Dois Vizinhos/PR</footer>
+</div>
+
+<!-- MODAL LOGIN -->
+<div id="loginModal" class="modal-overlay">
+    <div class="modal-content">
+        <span class="close-modal" onclick="fecharModal('loginModal')">&times;</span>
+        <h3><i class="fas fa-lock"></i> Acessar conta</h3>
+        <input type="email" id="loginEmail" placeholder="E-mail">
+        <input type="password" id="loginSenha" placeholder="Senha">
+        <div id="loginError" class="error-message">❌ E-mail ou senha inválidos</div>
+        <button onclick="fazerLogin()">Entrar</button>
+        <div class="modal-footer">Não tem conta? <a onclick="mostrarCadastro()">Criar conta gratuita</a></div>
+    </div>
+</div>
+
+<!-- MODAL CADASTRO -->
+<div id="cadastroModal" class="modal-overlay">
+    <div class="modal-content">
+        <span class="close-modal" onclick="fecharModal('cadastroModal')">&times;</span>
+        <h3><i class="fas fa-user-plus"></i> Cadastro</h3>
+        <input type="text" id="cadastroNome" placeholder="Nome completo">
+        <input type="email" id="cadastroEmail" placeholder="E-mail">
+        <input type="password" id="cadastroSenha" placeholder="Senha">
+        <input type="password" id="cadastroConfirma" placeholder="Confirmar senha">
+        <div id="cadastroError" class="error-message"></div>
+        <button onclick="fazerCadastro()">Cadastrar</button>
+        <div class="modal-footer">Já tem cadastro? <a onclick="mostrarLogin()">Faça login</a></div>
+    </div>
+</div>
+
+<!-- MODAL AGENDAMENTO -->
+<div id="agendamentoModal" class="modal-overlay">
+    <div class="modal-content">
+        <span class="close-modal" onclick="fecharModal('agendamentoModal')">&times;</span>
+        <h3><i class="fas fa-calendar-check"></i> Novo agendamento</h3>
+        <input type="text" id="agendaNome" placeholder="Seu nome completo">
+        <input type="tel" id="agendaTelefone" placeholder="Telefone com DDD">
+        <select id="agendaLocal">
+            <option value="">Selecione a unidade</option>
+            <option value="Hospital Pró-Vida">Hospital Pró-Vida</option><option value="UPA 24h">UPA 24h</option>
+            <option value="ESF da Luz">ESF da Luz</option><option value="ESF da Colina">ESF da Colina</option>
+            <option value="ESF Santa Luzia">ESF Santa Luzia</option><option value="ESF Centro Norte">ESF Centro Norte</option>
+            <option value="ESF Sagrada Família">ESF Sagrada Família</option><option value="ESF Centro Sul">ESF Centro Sul</option>
+        </select>
+        <input type="date" id="agendaData">
+        <input type="time" id="agendaHora">
+        <select id="agendaEspecialidade">
+            <option value="">Especialidade</option>
+            <option value="Clínico Geral">Clínico Geral</option><option value="Pediatria">Pediatria</option>
+            <option value="Ginecologia">Ginecologia</option><option value="Odontologia">Odontologia</option><option value="Enfermagem">Enfermagem</option>
+        </select>
+        <button onclick="confirmarAgendamento()">Confirmar consulta</button>
+    </div>
+</div>
+
+<script>
+    // ---- dados dos estabelecimentos para preencher de forma elegante e manter busca ----
+    const postosData = [
+        { nome: "ESF da Luz", endereco: "Rua Paulo Antonio de Godoy, 271 - Bairro da Luz", mapa: "Rua+Paulo+Antonio+de+Godoy+271,+Da+Luz,+Dois+Vizinhos+-+PR" },
+        { nome: "ESF da Colina", endereco: "Rua dos Girassóis, 349 - Jardim da Colina", mapa: "Rua+dos+Girassóis+349,+Jardim+da+Colina,+Dois+Vizinhos+-+PR" },
+        { nome: "ESF Santa Luzia", endereco: "Rua Argentina - Santa Luzia", mapa: "Rua+Argentina,+Santa+Luzia,+Dois+Vizinhos+-+PR" },
+        { nome: "ESF Centro Norte", endereco: "Av. Dedi Barichello Montagner - Centro Norte", mapa: "Av.+Dedi+Barichello+Montagner,+Centro+Norte,+Dois+Vizinhos+-+PR" },
+        { nome: "ESF Sagrada Família", endereco: "Av. Rio Grande do Sul, 1291", mapa: "Av.+Rio+Grande+do+Sul+1291,+Sagrada+Família,+Dois+Vizinhos+-+PR" },
+        { nome: "ESF Centro Sul", endereco: "Rua Mato Grosso, 484 - Centro Sul", mapa: "Rua+Mato+Grosso+484,+Centro+Sul,+Dois+Vizinhos+-+PR" }
+    ];
+    const farmaciasData = [
+        { nome: "Farmácia São João", endereco: "Rua Sete de Setembro, 228 - Centro | Tel: (46) 3536-9696", mapa: "Rua+Sete+de+Setembro+228,+85660-000+Dois+Vizinhos+-+PR" },
+        { nome: "Farmácia Santo Antônio", endereco: "Rua Sete de Setembro, 249 - Centro", mapa: "Rua+Sete+de+Setembro+249,+85660-000+Dois+Vizinhos+-+PR" },
+        { nome: "Coperfarma", endereco: "Av. Dedi Barichello Montagner, 418 - Centro", mapa: "Av.+Dedi+Barichello+Montagner+418,+85660-000+Dois+Vizinhos+-+PR" },
+        { nome: "Farmácia São Rafael", endereco: "Av. Presidente Kennedy, 436 - Centro Sul", mapa: "Av.+Presidente+Kennedy+436,+85660-000+Dois+Vizinhos+-+PR" }
+    ];
+
+    function renderDynamicLists() {
+        const postosContainer = document.getElementById('postosList');
+        postosContainer.innerHTML = '';
+        postosData.forEach(p => {
+            const div = document.createElement('div');
+            div.className = 'health-item';
+            div.innerHTML = `<div class="info"><h3>⚕️ ${p.nome}</h3><p><i class="fas fa-location-dot"></i> ${p.endereco}</p></div><div class="links"><a href="https://www.google.com/maps/search/?api=1&query=${p.mapa}" target="_blank" class="map-link"><i class="fas fa-map-marker-alt"></i> Mapa</a></div>`;
+            postosContainer.appendChild(div);
+        });
+        const farmaContainer = document.getElementById('farmaciasList');
+        farmaContainer.innerHTML = '';
+        farmaciasData.forEach(f => {
+            const div = document.createElement('div');
+            div.className = 'health-item';
+            div.innerHTML = `<div class="info"><h3>💊 ${f.nome}</h3><p><i class="fas fa-location-dot"></i> ${f.endereco}</p></div><div class="links"><a href="https://www.google.com/maps/search/?api=1&query=${f.mapa}" target="_blank" class="map-link"><i class="fas fa-map-marker-alt"></i> Mapa</a></div>`;
+            farmaContainer.appendChild(div);
+        });
+    }
+    renderDynamicLists();
+
+    // STORAGE KEYS
+    const USUARIOS_KEY = 'vitalis_usuarios';
+    const LOGADO_KEY = 'vitalis_logado';
+
+    function getUsuarios() {
+        let usuarios = localStorage.getItem(USUARIOS_KEY);
+        if (!usuarios) {
+            const padrao = [{ id: 1, nome: "Usuário Teste", email: "teste@email.com", senha: "123456" }];
+            localStorage.setItem(USUARIOS_KEY, JSON.stringify(padrao));
+            return padrao;
         }
-        
-        /**
-         * Salva a lista de usuários no localStorage
-         * @param {Array} usuarios - Lista de usuários
-         */
-        function salvarUsuarios(usuarios) {
-            localStorage.setItem(USUARIOS_STORAGE_KEY, JSON.stringify(usuarios));
+        return JSON.parse(usuarios);
+    }
+
+    function salvarUsuarios(users) { localStorage.setItem(USUARIOS_KEY, JSON.stringify(users)); }
+    function getUsuarioLogado() { const u = localStorage.getItem(LOGADO_KEY); return u ? JSON.parse(u) : null; }
+    function salvarSessao(user) { localStorage.setItem(LOGADO_KEY, JSON.stringify(user)); }
+    function removerSessao() { localStorage.removeItem(LOGADO_KEY); }
+
+    function autenticar(email, senha) {
+        const users = getUsuarios();
+        return users.find(u => u.email === email && u.senha === senha) || null;
+    }
+
+    function registrar(nome, email, senha) {
+        const users = getUsuarios();
+        if (users.some(u => u.email === email)) return false;
+        const novoId = users.length ? Math.max(...users.map(u => u.id)) + 1 : 1;
+        users.push({ id: novoId, nome, email, senha });
+        salvarUsuarios(users);
+        return true;
+    }
+
+    function atualizarUI() {
+        const user = getUsuarioLogado();
+        const userArea = document.getElementById('userInfoArea');
+        const loginBtn = document.getElementById('loginButton');
+        if (user) {
+            userArea.classList.remove('hidden');
+            loginBtn.classList.add('hidden');
+            document.getElementById('userEmailDisplay').innerHTML = `<i class="fas fa-user-md"></i> ${user.email}`;
+        } else {
+            userArea.classList.add('hidden');
+            loginBtn.classList.remove('hidden');
         }
-        
-        /**
-         * Verifica se um e-mail já está cadastrado
-         * @param {string} email - E-mail a ser verificado
-         * @returns {boolean} True se já existe, false caso contrário
-         */
-        function emailJaCadastrado(email) {
-            const usuarios = getUsuarios();
-            return usuarios.some(user => user.email === email);
-        }
-        
-        /**
-         * Realiza o login do usuário
-         * @param {string} email - E-mail do usuário
-         * @param {string} senha - Senha do usuário
-         * @returns {object|null} Retorna o usuário se encontrado, null caso contrário
-         */
-        function autenticarUsuario(email, senha) {
-            const usuarios = getUsuarios();
-            return usuarios.find(user => user.email === email && user.senha === senha) || null;
-        }
-        
-        /**
-         * Registra um novo usuário no sistema
-         * @param {string} nome - Nome completo
-         * @param {string} email - E-mail
-         * @param {string} senha - Senha
-         * @returns {boolean} True se cadastrou com sucesso, false se e-mail já existe
-         */
-        function registrarUsuario(nome, email, senha) {
-            if (emailJaCadastrado(email)) {
-                return false;
-            }
-            
-            const usuarios = getUsuarios();
-            const novoId = usuarios.length > 0 ? Math.max(...usuarios.map(u => u.id)) + 1 : 1;
-            
-            const novoUsuario = {
-                id: novoId,
-                nome: nome,
-                email: email,
-                senha: senha
-            };
-            
-            usuarios.push(novoUsuario);
-            salvarUsuarios(usuarios);
-            return true;
-        }
-        
-        /**
-         * Salva o usuário logado no localStorage
-         * @param {object} usuario - Usuário que fez login
-         */
-        function salvarSessao(usuario) {
-            localStorage.setItem(USUARIO_LOGADO_KEY, JSON.stringify(usuario));
-        }
-        
-        /**
-         * Obtém o usuário atualmente logado
-         * @returns {object|null} Usuário logado ou null
-         */
-        function getUsuarioLogado() {
-            const usuario = localStorage.getItem(USUARIO_LOGADO_KEY);
-            return usuario ? JSON.parse(usuario) : null;
-        }
-        
-        /**
-         * Remove a sessão do usuário (logout)
-         */
-        function removerSessao() {
-            localStorage.removeItem(USUARIO_LOGADO_KEY);
-        }
-        
-        /**
-         * Atualiza a interface conforme o estado de login
-         * Mostra/esconde o botão de login e exibe o e-mail do usuário
-         */
-        function atualizarInterfaceUsuario() {
-            const usuarioLogado = getUsuarioLogado();
-            const userInfoArea = document.getElementById('userInfoArea');
-            const loginButton = document.getElementById('loginButton');
-            const userEmailDisplay = document.getElementById('userEmailDisplay');
-            
-            if (usuarioLogado) {
-                // Usuário está logado - mostra a área do usuário e esconde o botão de login
-                userInfoArea.classList.remove('hidden');
-                loginButton.classList.add('hidden');
-                userEmailDisplay.textContent = `👤 ${usuarioLogado.email}`;
-            } else {
-                // Usuário não está logado - esconde a área do usuário e mostra o botão de login
-                userInfoArea.classList.add('hidden');
-                loginButton.classList.remove('hidden');
-            }
-        }
-        
-        // ==================== FUNÇÕES PARA CONTROLAR OS MODAIS ====================
-        
-        function abrirLogin() {
-            // Limpa os campos e a mensagem de erro
-            document.getElementById('loginEmail').value = '';
-            document.getElementById('loginSenha').value = '';
-            document.getElementById('loginError').style.display = 'none';
-            document.getElementById('loginModal').style.display = 'block';
-        }
-        
-        function abrirAgendamento() {
-            // Verifica se o usuário está logado antes de permitir agendamento
-            const usuarioLogado = getUsuarioLogado();
-            if (!usuarioLogado) {
-                alert('⚠️ Você precisa estar logado para agendar uma consulta!');
-                abrirLogin();
-                return;
-            }
-            document.getElementById('agendamentoModal').style.display = 'block';
-        }
-        
-        function fecharModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
-        
-        function mostrarCadastro() {
+    }
+
+    function fazerLogin() {
+        const email = document.getElementById('loginEmail').value.trim();
+        const senha = document.getElementById('loginSenha').value;
+        const user = autenticar(email, senha);
+        if (user) {
+            salvarSessao(user);
+            atualizarUI();
             fecharModal('loginModal');
-            // Limpa os campos e a mensagem de erro
-            document.getElementById('cadastroNome').value = '';
-            document.getElementById('cadastroEmail').value = '';
-            document.getElementById('cadastroSenha').value = '';
-            document.getElementById('cadastroConfirma').value = '';
-            document.getElementById('cadastroError').style.display = 'none';
-            document.getElementById('cadastroModal').style.display = 'block';
+            alert(`✨ Bem-vindo(a), ${user.nome}! Acesso refinado à saúde.`);
+        } else {
+            document.getElementById('loginError').style.display = 'block';
         }
-        
-        function mostrarLogin() {
+    }
+
+    function fazerCadastro() {
+        const nome = document.getElementById('cadastroNome').value.trim();
+        const email = document.getElementById('cadastroEmail').value.trim();
+        const senha = document.getElementById('cadastroSenha').value;
+        const confirma = document.getElementById('cadastroConfirma').value;
+        const errDiv = document.getElementById('cadastroError');
+        if (!nome || !email || !senha) { errDiv.textContent = '❌ Preencha todos os campos'; errDiv.style.display = 'block'; return; }
+        if (senha !== confirma) { errDiv.textContent = '❌ As senhas não coincidem'; errDiv.style.display = 'block'; return; }
+        if (registrar(nome, email, senha)) {
+            const novo = autenticar(email, senha);
+            salvarSessao(novo);
+            atualizarUI();
             fecharModal('cadastroModal');
-            document.getElementById('loginModal').style.display = 'block';
+            alert(`🎉 Conta criada com sucesso! Bem-vindo(a) à Vitalis.`);
+        } else {
+            errDiv.textContent = '❌ E-mail já cadastrado.';
+            errDiv.style.display = 'block';
         }
-        
-        // ==================== FUNÇÕES DE LOGIN E CADASTRO ====================
-        
-        /**
-         * Função de login - verifica no banco de dados se as credenciais são válidas
-         */
-        function fazerLogin() {
-            const email = document.getElementById('loginEmail').value;
-            const senha = document.getElementById('loginSenha').value;
-            
-            if (!email || !senha) {
-                alert('Por favor, preencha e-mail e senha!');
-                return;
-            }
-            
-            // Autentica o usuário no banco de dados
-            const usuario = autenticarUsuario(email, senha);
-            
-            if (usuario) {
-                // Login bem-sucedido
-                salvarSessao(usuario);
-                atualizarInterfaceUsuario();
-                fecharModal('loginModal');
-                
-                // Mensagem de boas-vindas
-                alert(`✅ Bem-vindo(a), ${usuario.nome}!`);
-            } else {
-                // Login falhou - mostra mensagem de erro
-                document.getElementById('loginError').style.display = 'block';
-            }
-        }
-        
-        /**
-         * Função de cadastro - salva o novo usuário no banco de dados
-         */
-        function fazerCadastro() {
-            const nome = document.getElementById('cadastroNome').value;
-            const email = document.getElementById('cadastroEmail').value;
-            const senha = document.getElementById('cadastroSenha').value;
-            const confirma = document.getElementById('cadastroConfirma').value;
-            
-            if (!nome || !email || !senha) {
-                alert('Por favor, preencha todos os campos!');
-                return;
-            }
-            
-            if (senha !== confirma) {
-                document.getElementById('cadastroError').style.display = 'block';
-                document.getElementById('cadastroError').textContent = '❌ As senhas não coincidem!';
-                return;
-            }
-            
-            // Tenta registrar o novo usuário
-            const cadastrou = registrarUsuario(nome, email, senha);
-            
-            if (cadastrou) {
-                // Cadastro bem-sucedido - faz login automático
-                const novoUsuario = autenticarUsuario(email, senha);
-                salvarSessao(novoUsuario);
-                atualizarInterfaceUsuario();
-                fecharModal('cadastroModal');
-                alert(`✅ Cadastro realizado com sucesso! Bem-vindo(a), ${nome}!`);
-            } else {
-                // E-mail já cadastrado
-                document.getElementById('cadastroError').style.display = 'block';
-                document.getElementById('cadastroError').textContent = '❌ Este e-mail já está cadastrado!';
-            }
-        }
-        
-        /**
-         * Função de logout
-         */
-        function fazerLogout() {
-            removerSessao();
-            atualizarInterfaceUsuario();
-            alert('🔓 Você saiu da sua conta. Até logo!');
-        }
-        
-        // ==================== FUNÇÃO DE AGENDAMENTO ====================
-        
-        function confirmarAgendamento() {
-            const nome = document.getElementById('agendaNome').value;
-            const telefone = document.getElementById('agendaTelefone').value;
-            const local = document.getElementById('agendaLocal').value;
-            const data = document.getElementById('agendaData').value;
-            const hora = document.getElementById('agendaHora').value;
-            const especialidade = document.getElementById('agendaEspecialidade').value;
-            
-            if (!nome || !telefone || !local || !data || !hora || !especialidade) {
-                alert('Por favor, preencha todos os campos!');
-                return;
-            }
-            
-            const usuarioLogado = getUsuarioLogado();
-            const dataFormatada = new Date(data).toLocaleDateString('pt-BR');
-            
-            // Abre uma nova aba com o comprovante do agendamento
-            const novaAba = window.open('about:blank', '_blank');
-            novaAba.document.write(`
-                <html>
-                <head>
-                    <title>Agendamento - Guia de Saúde</title>
-                    <style>
-                        body {
-                            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                            text-align: center;
-                            padding: 50px;
-                            background: linear-gradient(135deg, #4a90e2 0%, #667eea 100%);
-                            color: white;
-                        }
-                        .container {
-                            background: rgba(255,255,255,0.9);
-                            color: #333;
-                            padding: 30px;
-                            border-radius: 15px;
-                            max-width: 500px;
-                            margin: 0 auto;
-                            text-align: left;
-                        }
-                        .container h2 {
-                            text-align: center;
-                            color: #27ae60;
-                        }
-                        .detalhe {
-                            margin: 15px 0;
-                            padding: 10px;
-                            background: #f0f0f0;
-                            border-radius: 8px;
-                        }
-                        hr {
-                            margin: 20px 0;
-                        }
-                    </style>
-                </head>
-                <body>
-                    <div class="container">
-                        <h2>✅ Consulta agendada com sucesso!</h2>
-                        <div class="detalhe">
-                            <p><strong>👤 Paciente:</strong> ${nome}</p>
-                            <p><strong>📞 Telefone:</strong> ${telefone}</p>
-                            <p><strong>🏥 Local:</strong> ${local}</p>
-                            <p><strong>📅 Data:</strong> ${dataFormatada} às ${hora}</p>
-                            <p><strong>🩺 Especialidade:</strong> ${especialidade}</p>
-                            ${usuarioLogado ? `<p><strong>🔑 Conta:</strong> ${usuarioLogado.email}</p>` : ''}
-                        </div>
-                        <hr>
-                        <p>📱 Um lembrete será enviado para seu telefone.</p>
-                        <p style="text-align: center;">Você será redirecionado em 5 segundos...</p>
-                    </div>
-                    <script>
-                        setTimeout(() => { window.close(); }, 5000);
-                    <\/script>
-                </body>
-                </html>
-            `);
-            
-            fecharModal('agendamentoModal');
-            limparCamposAgendamento();
-        }
-        
-        function limparCamposAgendamento() {
-            document.getElementById('agendaNome').value = '';
-            document.getElementById('agendaTelefone').value = '';
-            document.getElementById('agendaLocal').value = '';
-            document.getElementById('agendaData').value = '';
-            document.getElementById('agendaHora').value = '';
-            document.getElementById('agendaEspecialidade').value = '';
-        }
-        
-        // ==================== FUNÇÃO DE BUSCA/PESQUISA ====================
-        
-        document.getElementById('search').addEventListener('input', function() {
-            const termo = this.value.toLowerCase();
-            const sections = document.querySelectorAll('section');
-            
-            sections.forEach(section => {
-                const itens = section.querySelectorAll('li');
-                let temResultado = false;
-                
-                itens.forEach(item => {
-                    const texto = item.textContent.toLowerCase();
-                    if (texto.includes(termo)) {
-                        item.style.display = '';
-                        temResultado = true;
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-                
-                if (!temResultado && termo !== '') {
-                    section.style.display = 'none';
+    }
+
+    function fazerLogout() { removerSessao(); atualizarUI(); alert('🔒 Você saiu com segurança. Até breve!'); }
+
+    function abrirLogin() { document.getElementById('loginModal').style.display = 'flex'; }
+    function abrirAgendamento() {
+        if (!getUsuarioLogado()) { alert('🔐 É necessário estar logado para agendar consulta.'); abrirLogin(); return; }
+        document.getElementById('agendamentoModal').style.display = 'flex';
+    }
+    function fecharModal(id) { document.getElementById(id).style.display = 'none'; }
+    function mostrarCadastro() { fecharModal('loginModal'); document.getElementById('cadastroModal').style.display = 'flex'; }
+    function mostrarLogin() { fecharModal('cadastroModal'); document.getElementById('loginModal').style.display = 'flex'; }
+
+    function confirmarAgendamento() {
+        const nome = document.getElementById('agendaNome').value.trim();
+        const tel = document.getElementById('agendaTelefone').value.trim();
+        const local = document.getElementById('agendaLocal').value;
+        const data = document.getElementById('agendaData').value;
+        const hora = document.getElementById('agendaHora').value;
+        const esp = document.getElementById('agendaEspecialidade').value;
+        if (!nome || !tel || !local || !data || !hora || !esp) { alert('Por favor, preencha todos os campos para agendar.'); return; }
+        const userLog = getUsuarioLogado();
+        const dataFormatada = new Date(data).toLocaleDateString('pt-BR');
+        const win = window.open('about:blank', '_blank');
+        win.document.write(`
+            <html><head><title>Confirmação Vitalis</title><style>body{font-family:Inter;background:#eef3fc;text-align:center;padding:2rem} .card{background:white;border-radius:32px;max-width:500px;margin:auto;padding:2rem;box-shadow:0 20px 35px -10px rgba(0,0,0,0.1)} h2{color:#1e6f5c}</style></head>
+            <body><div class="card"><h2><i class="fas fa-check-circle"></i> Consulta agendada</h2><hr><p><strong>Paciente:</strong> ${nome}</p><p><strong>Local:</strong> ${local}</p><p><strong>Data:</strong> ${dataFormatada} às ${hora}</p><p><strong>Especialidade:</strong> ${esp}</p><p><strong>Contato:</strong> ${tel}</p><p>✅ Agendamento registrado com sucesso. Um lembrete será enviado.</p><br><small>Vitalis Saúde — Cuidado que transforma</small></div><script>setTimeout(()=>window.close(),4500);<\/script></body></html>
+        `);
+        fecharModal('agendamentoModal');
+        document.getElementById('agendaNome').value = '';
+        document.getElementById('agendaTelefone').value = '';
+        document.getElementById('agendaLocal').value = '';
+        document.getElementById('agendaData').value = '';
+        document.getElementById('agendaHora').value = '';
+        document.getElementById('agendaEspecialidade').value = '';
+    }
+
+    // BUSCA refinada
+    document.getElementById('search').addEventListener('input', function(e) {
+        const term = e.target.value.toLowerCase().trim();
+        const allCards = document.querySelectorAll('.section-card');
+        allCards.forEach(card => {
+            const items = card.querySelectorAll('.health-item');
+            let hasMatch = false;
+            items.forEach(item => {
+                const text = item.innerText.toLowerCase();
+                if (term === '' || text.includes(term)) {
+                    item.style.display = '';
+                    hasMatch = true;
                 } else {
-                    section.style.display = '';
+                    item.style.display = 'none';
                 }
             });
+            card.style.display = hasMatch || term === '' ? '' : 'none';
         });
-        
-        // ==================== FECHAR MODAL AO CLICAR FORA ====================
-        
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal-overlay')) {
-                event.target.style.display = 'none';
-            }
-        };
-        
-        // ==================== INICIALIZAÇÃO DA PÁGINA ====================
-        
-        /**
-         * Inicializa a página - verifica se há usuário logado e atualiza a interface
-         */
-        function inicializarPagina() {
-            atualizarInterfaceUsuario();
-            console.log('✅ Site Guia de Saúde carregado com sucesso!');
-            console.log('📋 Conta de teste: teste@email.com / 123456');
-        }
-        
-        // Executa a inicialização quando a página carregar
-        inicializarPagina();
-    </script>
+    });
+
+    window.onclick = function(e) { if(e.target.classList.contains('modal-overlay')) e.target.style.display = 'none'; };
+    atualizarUI();
+    console.log("Vitalis Saúde — experiência refinada carregada.");
+</script>
 </body>
 </html>
