@@ -1,363 +1,631 @@
 <!DOCTYPE html>
+<!-- Declaração do tipo de documento HTML5 - informa ao navegador que este é um documento HTML moderno -->
 <html lang="pt-BR">
+<!-- Tag de abertura do HTML com atributo lang definindo o idioma como português do Brasil para acessibilidade e SEO -->
+
 <head>
+    <!-- Início da seção de cabeçalho - contém metadados e configurações da página -->
+    
     <meta charset="UTF-8">
+    <!-- Define a codificação de caracteres como UTF-8, permitindo acentos, ç e caracteres especiais corretamente -->
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <!-- Configura a viewport para responsividade: 
+         width=device-width = largura igual à tela do dispositivo
+         initial-scale=1.0 = zoom inicial padrão
+         viewport-fit=cover = garante que o conteúdo ocupe toda a tela em dispositivos com notch -->
+    
     <title>Vitalis | Guia de Saúde - Dois Vizinhos/PR</title>
+    <!-- Título que aparece na aba do navegador e nos resultados de busca -->
+    
     <!-- Google Fonts para tipografia refinada -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <!-- Importa a fonte Inter do Google Fonts com variações de peso (300 a 700) para uma tipografia moderna e profissional -->
+    
     <!-- Font Awesome 6 (ícones) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Biblioteca de ícones vetoriais Font Awesome, usada para adicionar ícones visuais em toda a interface -->
+    
     <style>
+        /* Início dos estilos CSS personalizados - todos os estilos visuais da página */
+        
+        /* Reset CSS - remove margens e paddings padrão de todos os elementos */
         * {
             margin: 0;
+            /* Remove margem padrão de todos os elementos */
             padding: 0;
+            /* Remove padding padrão de todos os elementos */
             box-sizing: border-box;
+            /* Faz com que padding e border sejam incluídos na largura/altura total do elemento */
         }
 
+        /* Estilos globais do corpo da página */
         body {
             font-family: 'Inter', sans-serif;
+            /* Define a fonte principal como Inter, com fallback para qualquer sans-serif */
             background: #f4f7fc;
+            /* Cor de fundo suave azulacinzentada para a página */
             color: #1e2a3e;
+            /* Cor do texto principal em tom escuro mas suave */
             line-height: 1.5;
+            /* Altura da linha para melhor legibilidade */
             scroll-behavior: smooth;
+            /* Rolagem suave ao clicar em links âncora */
         }
 
-        /* Efeito de vidro e sombras elegantes */
+        /* Classe para efeito de vidro (glassmorphism) em cards */
         .glass-card {
             background: rgba(255, 255, 255, 0.92);
+            /* Fundo branco semi-transparente */
             backdrop-filter: blur(2px);
+            /* Aplica desfoque sutil ao fundo atrás do elemento */
             border-radius: 32px;
+            /* Bordas arredondadas grandes para um visual moderno */
             box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.02);
+            /* Sombra suave para profundidade */
             transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+            /* Transição suave para animações */
         }
 
+        /* Container centralizado que limita a largura máxima do conteúdo */
         .container {
             max-width: 1300px;
+            /* Largura máxima do conteúdo */
             margin: 0 auto;
+            /* Centraliza horizontalmente */
             padding: 0 24px;
+            /* Espaçamento interno lateral */
         }
 
-        /* HEADER REFINADO */
+        /* Estilos do cabeçalho principal */
         header {
             background: linear-gradient(135deg, #0b2b3b 0%, #1b4f6e 100%);
+            /* Gradiente degradê de azul escuro para azul médio */
             border-radius: 0 0 32px 32px;
+            /* Bordas arredondadas apenas na parte inferior */
             padding: 28px 32px 32px 32px;
+            /* Espaçamento interno */
             margin-bottom: 32px;
+            /* Margem inferior para separar do próximo elemento */
             position: relative;
+            /* Permite posicionamento absoluto de elementos filhos */
             color: white;
+            /* Texto branco */
             box-shadow: 0 15px 30px -12px rgba(0, 0, 0, 0.2);
+            /* Sombra para dar profundidade */
         }
 
+        /* Título principal do cabeçalho */
         header h1 {
             font-size: 2rem;
+            /* Tamanho da fonte */
             font-weight: 700;
+            /* Peso da fonte (negrito) */
             letter-spacing: -0.3px;
+            /* Espaçamento negativo entre letras para um visual mais compacto */
             display: flex;
+            /* Flexbox para alinhar ícone e texto */
             align-items: center;
+            /* Alinha verticalmente ao centro */
             gap: 12px;
+            /* Espaçamento entre o ícone e o texto */
         }
 
+        /* Ícone dentro do título */
         header h1 i {
             font-size: 2rem;
+            /* Tamanho do ícone */
             color: #7bc5ae;
+            /* Cor verde-água suave */
         }
 
+        /* Subtítulo do cabeçalho */
         header p {
             opacity: 0.85;
+            /* Leve transparência */
             margin-top: 8px;
+            /* Margem superior */
             font-weight: 400;
+            /* Peso normal */
             font-size: 1rem;
+            /* Tamanho da fonte */
         }
 
+        /* Área de informações do usuário logado (canto superior direito) */
         .user-info {
             position: absolute;
+            /* Posicionamento absoluto relativo ao header */
             top: 28px;
+            /* Distância do topo */
             right: 32px;
+            /* Distância da direita */
             background: rgba(255, 255, 255, 0.15);
+            /* Fundo branco semi-transparente */
             backdrop-filter: blur(12px);
+            /* Desfoque no fundo */
             padding: 8px 20px;
+            /* Espaçamento interno */
             border-radius: 60px;
+            /* Bordas muito arredondadas (efeito pill) */
             font-size: 0.85rem;
+            /* Tamanho da fonte menor */
             display: flex;
+            /* Flexbox para alinhar elementos */
             align-items: center;
+            /* Alinhamento vertical central */
             gap: 12px;
+            /* Espaçamento entre os itens */
             font-weight: 500;
+            /* Peso médio */
             border: 1px solid rgba(255, 255, 255, 0.2);
+            /* Borda sutil */
             transition: all 0.2s;
+            /* Transição suave */
         }
 
+        /* Email do usuário logado */
         .user-email {
             color: white;
+            /* Texto branco */
             max-width: 200px;
+            /* Largura máxima */
             overflow: hidden;
+            /* Esconde conteúdo que ultrapassa */
             text-overflow: ellipsis;
+            /* Adiciona "..." quando o texto é cortado */
             white-space: nowrap;
+            /* Impede quebra de linha */
         }
 
+        /* Botão de logout */
         .logout-btn {
             background: rgba(231, 76, 60, 0.9);
+            /* Fundo vermelho semi-transparente */
             border: none;
+            /* Remove borda padrão */
             padding: 6px 14px;
+            /* Espaçamento interno */
             border-radius: 40px;
+            /* Bordas arredondadas */
             color: white;
+            /* Texto branco */
             font-weight: 500;
+            /* Peso médio */
             font-size: 0.75rem;
+            /* Tamanho pequeno */
             cursor: pointer;
+            /* Cursor de mão ao passar */
             transition: 0.2s;
+            /* Transição suave */
             display: inline-flex;
+            /* Flex inline para alinhar ícone e texto */
             align-items: center;
+            /* Alinhamento vertical */
             gap: 6px;
+            /* Espaçamento entre ícone e texto */
         }
 
+        /* Efeito hover no botão de logout */
         .logout-btn:hover {
             background: #c0392b;
+            /* Vermelho mais escuro */
             transform: scale(0.97);
+            /* Leve redução de tamanho ao passar o mouse */
         }
 
-        /* top nav elegante */
+        /* Barra de navegação superior (botões de login e agendamento) */
         .top-nav {
             display: flex;
+            /* Flexbox para alinhamento */
             justify-content: flex-end;
+            /* Alinha os botões à direita */
             gap: 16px;
+            /* Espaçamento entre os botões */
             margin-bottom: 24px;
+            /* Margem inferior */
         }
 
+        /* Estilos base para botões primários e secundários */
         .btn-primary, .btn-secondary {
             border: none;
+            /* Remove borda padrão */
             padding: 10px 24px;
+            /* Espaçamento interno */
             border-radius: 40px;
+            /* Bordas arredondadas */
             font-weight: 600;
+            /* Peso semi-negrito */
             font-size: 0.9rem;
+            /* Tamanho da fonte */
             cursor: pointer;
+            /* Cursor de mão */
             transition: all 0.2s ease;
+            /* Transição suave */
             display: inline-flex;
+            /* Flex inline */
             align-items: center;
+            /* Alinhamento vertical */
             gap: 8px;
+            /* Espaçamento entre ícone e texto */
             background: white;
+            /* Fundo branco padrão */
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+            /* Sombra sutil */
         }
 
+        /* Estilo específico para botão primário (agendamento) */
         .btn-primary {
             background: #1e6f5c;
+            /* Fundo verde-azulado */
             color: white;
+            /* Texto branco */
             box-shadow: 0 6px 14px rgba(30, 111, 92, 0.2);
+            /* Sombra com cor do botão */
         }
 
+        /* Hover do botão primário */
         .btn-primary:hover {
             background: #0f5243;
+            /* Tom mais escuro */
             transform: translateY(-2px);
+            /* Leve movimento para cima */
         }
 
+        /* Estilo específico para botão secundário (login) */
         .btn-secondary {
             background: white;
+            /* Fundo branco */
             color: #1e6f5c;
+            /* Texto na cor do tema */
             border: 1px solid #dce7ed;
+            /* Borda sutil */
         }
 
+        /* Hover do botão secundário */
         .btn-secondary:hover {
             background: #eef3f7;
+            /* Fundo levemente acinzentado */
             border-color: #bdd3de;
+            /* Borda mais escura */
         }
 
-        /* search box premium */
+        /* Caixa de pesquisa refinada */
         .search-box {
             background: white;
+            /* Fundo branco */
             padding: 6px 6px 6px 24px;
+            /* Espaçamento interno assimétrico (maior à esquerda) */
             border-radius: 80px;
+            /* Bordas extremamente arredondadas */
             margin-bottom: 32px;
+            /* Margem inferior */
             display: flex;
+            /* Flexbox */
             align-items: center;
+            /* Alinhamento vertical */
             gap: 12px;
+            /* Espaçamento entre elementos */
             box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.05);
+            /* Sombra suave */
             border: 1px solid #e9edf2;
+            /* Borda sutil */
         }
 
+        /* Ícone dentro da caixa de pesquisa */
         .search-box i {
             color: #8ba0b0;
+            /* Cor cinza-azulada */
             font-size: 1.2rem;
+            /* Tamanho do ícone */
         }
 
+        /* Campo de input da pesquisa */
         .search-box input {
             flex: 1;
+            /* Ocupa todo o espaço disponível */
             border: none;
+            /* Remove borda padrão */
             padding: 14px 0;
+            /* Espaçamento vertical */
             font-size: 1rem;
+            /* Tamanho da fonte */
             background: transparent;
+            /* Fundo transparente */
             outline: none;
+            /* Remove outline ao focar */
             font-weight: 500;
+            /* Peso médio */
             color: #1e2a3e;
+            /* Cor do texto */
         }
 
+        /* Placeholder do campo de pesquisa */
         .search-box input::placeholder {
             color: #b2c3d0;
+            /* Cor mais clara */
             font-weight: 400;
+            /* Peso normal */
         }
 
-        /* grade de cards (seções) */
+        /* Card de seção (cada seção de estabelecimentos) */
         .section-card {
             background: white;
+            /* Fundo branco */
             border-radius: 32px;
+            /* Bordas arredondadas */
             padding: 28px 28px 20px 28px;
+            /* Espaçamento interno */
             margin-bottom: 32px;
+            /* Margem inferior */
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.03);
+            /* Sombra muito sutil */
             transition: all 0.25s;
+            /* Transição suave */
             border: 1px solid #eff3f8;
+            /* Borda sutil */
         }
 
+        /* Cabeçalho de cada seção */
         .section-header {
             display: flex;
+            /* Flexbox */
             align-items: center;
+            /* Alinhamento vertical */
             gap: 12px;
+            /* Espaçamento */
             margin-bottom: 24px;
+            /* Margem inferior */
             border-left: 5px solid #2c9b7a;
+            /* Barra lateral decorativa verde */
             padding-left: 20px;
+            /* Espaçamento interno esquerdo */
         }
 
+        /* Título da seção */
         .section-header h2 {
             font-size: 1.6rem;
+            /* Tamanho da fonte */
             font-weight: 700;
+            /* Negrito */
             color: #153e4b;
+            /* Cor azul escura */
             letter-spacing: -0.2px;
+            /* Espaçamento negativo entre letras */
         }
 
+        /* Ícone do cabeçalho da seção */
         .section-header i {
             font-size: 1.8rem;
+            /* Tamanho do ícone */
             color: #2c9b7a;
+            /* Cor verde-água */
         }
 
-        /* lista de locais estilo cartão moderno */
+        /* Container em grade para lista de itens */
         .grid-list {
             display: flex;
+            /* Flexbox */
             flex-direction: column;
+            /* Direção em coluna */
             gap: 18px;
+            /* Espaçamento entre itens */
         }
 
+        /* Cada item de estabelecimento (hospital, posto, farmácia) */
         .health-item {
             background: #fefefe;
+            /* Fundo quase branco */
             border-radius: 24px;
+            /* Bordas arredondadas */
             padding: 20px 24px;
+            /* Espaçamento interno */
             transition: all 0.25s;
+            /* Transição suave */
             border: 1px solid #edf2f7;
+            /* Borda sutil */
             display: flex;
+            /* Flexbox */
             flex-wrap: wrap;
+            /* Permite quebra de linha */
             justify-content: space-between;
+            /* Espaço entre os elementos */
             align-items: center;
+            /* Alinhamento vertical central */
         }
 
+        /* Efeito hover nos itens de estabelecimento */
         .health-item:hover {
             border-color: #cbe5de;
+            /* Borda mais visível */
             box-shadow: 0 12px 22px -12px rgba(0, 0, 0, 0.08);
+            /* Sombra mais pronunciada */
             transform: translateY(-2px);
+            /* Leve movimento para cima */
         }
 
+        /* Container das informações do estabelecimento */
         .info h3 {
             font-weight: 700;
+            /* Negrito */
             font-size: 1.2rem;
+            /* Tamanho da fonte */
             margin-bottom: 6px;
+            /* Margem inferior */
             color: #1c4e5c;
+            /* Cor azul escura */
         }
 
+        /* Parágrafo com endereço */
         .info p {
             color: #4a6272;
+            /* Cor cinza-azulada */
             font-size: 0.9rem;
+            /* Tamanho menor */
             display: flex;
+            /* Flexbox */
             align-items: center;
+            /* Alinhamento vertical */
             gap: 8px;
+            /* Espaçamento */
             flex-wrap: wrap;
+            /* Permite quebra de linha */
         }
 
+        /* Ícones dentro das informações */
         .info p i {
             width: 18px;
+            /* Largura fixa */
             color: #2c9b7a;
+            /* Cor verde-água */
         }
 
+        /* Container de links (botões) */
         .links {
             display: flex;
+            /* Flexbox */
             gap: 12px;
+            /* Espaçamento entre botões */
             flex-wrap: wrap;
+            /* Permite quebra de linha */
         }
 
+        /* Link de mapa (botão) */
         .map-link {
             background: #eef3fc;
+            /* Fundo azul muito claro */
             color: #1e6f5c;
+            /* Cor verde-azulada */
             padding: 8px 16px;
+            /* Espaçamento interno */
             border-radius: 40px;
+            /* Bordas arredondadas */
             text-decoration: none;
+            /* Remove sublinhado */
             font-weight: 500;
+            /* Peso médio */
             font-size: 0.8rem;
+            /* Tamanho pequeno */
             display: inline-flex;
+            /* Flex inline */
             align-items: center;
+            /* Alinhamento vertical */
             gap: 6px;
+            /* Espaçamento */
             transition: 0.2s;
+            /* Transição suave */
         }
 
+        /* Hover do link de mapa */
         .map-link:hover {
             background: #dee9f2;
+            /* Fundo mais escuro */
             transform: translateY(-1px);
+            /* Leve movimento */
         }
 
-        /* emergência banner */
+        /* Banner de emergências */
         .emergency-banner {
             background: linear-gradient(115deg, #122c38 0%, #1a4a5c 100%);
+            /* Gradiente azul escuro */
             border-radius: 28px;
+            /* Bordas arredondadas */
             padding: 28px 32px;
+            /* Espaçamento interno */
             margin-top: 20px;
+            /* Margem superior */
             margin-bottom: 40px;
+            /* Margem inferior */
             display: flex;
+            /* Flexbox */
             flex-wrap: wrap;
+            /* Permite quebra de linha */
             justify-content: space-between;
+            /* Espaço entre elementos */
             align-items: center;
+            /* Alinhamento vertical */
             color: white;
+            /* Texto branco */
         }
 
+        /* Título do banner de emergências */
         .emergency-banner h2 {
             font-size: 1.5rem;
+            /* Tamanho da fonte */
             font-weight: 700;
+            /* Negrito */
             display: flex;
+            /* Flexbox */
             align-items: center;
+            /* Alinhamento vertical */
             gap: 12px;
+            /* Espaçamento */
         }
 
+        /* Container dos contatos de emergência */
         .emergency-contacts {
             display: flex;
+            /* Flexbox */
             gap: 32px;
+            /* Espaçamento entre contatos */
             font-weight: 500;
+            /* Peso médio */
         }
 
+        /* Cada contato de emergência individual */
         .emergency-contacts span {
             background: rgba(255, 255, 255, 0.12);
+            /* Fundo branco semi-transparente */
             padding: 8px 18px;
+            /* Espaçamento interno */
             border-radius: 60px;
+            /* Bordas arredondadas */
             font-size: 0.9rem;
+            /* Tamanho da fonte */
         }
 
-        /* Modais refinados */
+        /* Estilos para os modais (janelas modais) */
         .modal-overlay {
             display: none;
+            /* Inicialmente escondido */
             position: fixed;
+            /* Fixo na tela */
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background: rgba(18, 28, 35, 0.75);
+            /* Fundo escuro semi-transparente */
             backdrop-filter: blur(5px);
+            /* Desfoque no fundo */
             z-index: 1000;
+            /* Camada superior */
             justify-content: center;
+            /* Centraliza horizontalmente */
             align-items: center;
+            /* Centraliza verticalmente */
         }
 
+        /* Conteúdo do modal */
         .modal-content {
             background: white;
+            /* Fundo branco */
             max-width: 460px;
+            /* Largura máxima */
             width: 90%;
+            /* Largura responsiva */
             border-radius: 40px;
+            /* Bordas arredondadas */
             padding: 32px 28px;
+            /* Espaçamento interno */
             position: relative;
+            /* Para posicionamento do botão fechar */
             box-shadow: 0 35px 45px -15px rgba(0, 0, 0, 0.3);
+            /* Sombra pronunciada */
             animation: fadeUp 0.2s ease;
+            /* Animação de entrada */
         }
 
+        /* Animação de fade-in com movimento para cima */
         @keyframes fadeUp {
             from {
                 opacity: 0;
@@ -369,436 +637,327 @@
             }
         }
 
+        /* Título do modal */
         .modal-content h3 {
             font-size: 1.7rem;
+            /* Tamanho da fonte */
             font-weight: 700;
+            /* Negrito */
             margin-bottom: 20px;
+            /* Margem inferior */
             color: #1a5d6e;
+            /* Cor azul */
         }
 
+        /* Campos de input e selects dentro do modal */
         .modal-content input, .modal-content select {
             width: 100%;
+            /* Largura total */
             padding: 14px 16px;
+            /* Espaçamento interno */
             margin-bottom: 16px;
+            /* Margem inferior */
             border: 1.5px solid #e2e8f0;
+            /* Borda sutil */
             border-radius: 28px;
+            /* Bordas arredondadas */
             font-size: 0.9rem;
+            /* Tamanho da fonte */
             transition: 0.2s;
+            /* Transição suave */
             background: #fefefe;
+            /* Fundo quase branco */
             font-family: 'Inter', sans-serif;
+            /* Mesma fonte do site */
         }
 
+        /* Efeito focus nos campos do modal */
         .modal-content input:focus, .modal-content select:focus {
             border-color: #2c9b7a;
+            /* Borda verde ao focar */
             outline: none;
+            /* Remove outline padrão */
             box-shadow: 0 0 0 3px rgba(44, 155, 122, 0.2);
+            /* Sombra verde sutil */
         }
 
+        /* Botão dentro do modal */
         .modal-content button {
             background: #1e6f5c;
+            /* Fundo verde-azulado */
             width: 100%;
+            /* Largura total */
             padding: 14px;
+            /* Espaçamento interno */
             border: none;
+            /* Remove borda */
             border-radius: 40px;
+            /* Bordas arredondadas */
             color: white;
+            /* Texto branco */
             font-weight: 700;
+            /* Negrito */
             font-size: 1rem;
+            /* Tamanho da fonte */
             cursor: pointer;
+            /* Cursor de mão */
             transition: 0.2s;
+            /* Transição suave */
             margin-top: 8px;
+            /* Margem superior */
         }
 
+        /* Hover do botão do modal */
         .modal-content button:hover {
             background: #0e5a49;
+            /* Tom mais escuro */
         }
 
+        /* Botão de fechar modal (X) */
         .close-modal {
             position: absolute;
+            /* Posicionamento absoluto */
             top: 20px;
+            /* Distância do topo */
             right: 24px;
+            /* Distância da direita */
             font-size: 26px;
+            /* Tamanho do X */
             cursor: pointer;
+            /* Cursor de mão */
             color: #94a3b8;
+            /* Cor cinza */
             transition: 0.2s;
+            /* Transição suave */
         }
 
+        /* Hover do botão fechar */
         .close-modal:hover {
             color: #1e2a3e;
+            /* Cor mais escura */
         }
 
+        /* Mensagem de erro nos modais */
         .error-message {
             color: #e25c5c;
+            /* Cor vermelha */
             font-size: 0.75rem;
+            /* Tamanho pequeno */
             margin-top: -12px;
+            /* Margem negativa para aproximar do campo */
             margin-bottom: 12px;
+            /* Margem inferior */
             display: none;
+            /* Inicialmente escondido */
         }
 
+        /* Rodapé do modal (links de cadastro/login) */
         .modal-footer {
             text-align: center;
+            /* Texto centralizado */
             margin-top: 20px;
+            /* Margem superior */
             font-size: 0.85rem;
+            /* Tamanho menor */
         }
 
+        /* Links no rodapé do modal */
         .modal-footer a {
             color: #1e6f5c;
+            /* Cor verde-azulada */
             font-weight: 600;
+            /* Peso semi-negrito */
             text-decoration: none;
+            /* Remove sublinhado */
             cursor: pointer;
+            /* Cursor de mão */
         }
 
+        /* Classe utilitária para esconder elementos */
         .hidden {
             display: none !important;
+            /* Esconde com prioridade máxima */
         }
 
+        /* Rodapé da página */
         footer {
             text-align: center;
+            /* Texto centralizado */
             padding: 24px;
+            /* Espaçamento interno */
             font-size: 0.8rem;
+            /* Tamanho pequeno */
             color: #6c868e;
+            /* Cor cinza-azulada */
             border-top: 1px solid #e2edf2;
+            /* Borda superior sutil */
             margin-top: 20px;
+            /* Margem superior */
         }
 
+        /* Media query para telas menores que 760px (responsividade) */
         @media (max-width: 760px) {
+            /* Ajusta a área do usuário para mobile */
             .user-info {
                 position: relative;
+                /* Volta ao fluxo normal */
                 top: 0;
                 right: 0;
                 margin-top: 20px;
+                /* Margem superior */
                 justify-content: center;
+                /* Centraliza conteúdo */
                 width: fit-content;
+                /* Largura conforme conteúdo */
             }
+            /* Centraliza texto do cabeçalho */
             header {
                 text-align: center;
                 padding: 20px;
             }
+            /* Centraliza botões de navegação */
             .top-nav {
                 justify-content: center;
             }
+            /* Ajusta itens de saúde para coluna em mobile */
             .health-item {
                 flex-direction: column;
+                /* Direção coluna */
                 align-items: flex-start;
+                /* Alinha à esquerda */
                 gap: 16px;
+                /* Espaçamento */
             }
+            /* Banner de emergência em coluna */
             .emergency-banner {
                 flex-direction: column;
                 gap: 18px;
                 text-align: center;
             }
+            /* Tamanho do título da seção reduzido */
             .section-header h2 {
                 font-size: 1.3rem;
             }
         }
     </style>
 </head>
+
 <body>
+    <!-- Início do corpo da página - conteúdo visível -->
 
-<div class="container">
-    <header>
-        <h1><i class="fas fa-leaf"></i> Vitalis Saúde</h1>
-        <p>Guia inteligente de serviços médicos · Dois Vizinhos/PR</p>
-        <div id="userInfoArea" class="user-info hidden">
-            <span class="user-email" id="userEmailDisplay"></span>
-            <button class="logout-btn" onclick="fazerLogout()"><i class="fas fa-sign-out-alt"></i> Sair</button>
-        </div>
-    </header>
-
-    <div class="top-nav">
-        <button id="loginButton" class="btn-secondary" onclick="abrirLogin()"><i class="fas fa-user-circle"></i> Entrar / Criar conta</button>
-        <button class="btn-primary" onclick="abrirAgendamento()"><i class="fas fa-calendar-plus"></i> Agendar consulta</button>
-    </div>
-
-    <div class="search-box">
-        <i class="fas fa-search"></i>
-        <input type="text" id="search" placeholder="Pesquise por unidade de saúde, hospital, farmácia ou posto...">
-    </div>
-
-    <!-- Hospitais -->
-    <div class="section-card" id="hospitais">
-        <div class="section-header">
-            <i class="fas fa-hospital-user"></i>
-            <h2>Hospitais & UPA 24h</h2>
-        </div>
-        <div class="grid-list">
-            <div class="health-item">
-                <div class="info">
-                    <h3>🏥 Hospital Pró‑Vida</h3>
-                    <p><i class="fas fa-location-dot"></i> Rua Inês Pinzon, 611 - Centro Norte</p>
-                </div>
-                <div class="links"><a href="https://www.google.com/maps/search/?api=1&query=Rua+Inês+Pinzon+611,+85660-000+Dois+Vizinhos+-+PR" target="_blank" class="map-link"><i class="fas fa-map-marker-alt"></i> Mapa</a></div>
+    <div class="container">
+        <!-- Container principal que centraliza e limita a largura do conteúdo -->
+        
+        <header>
+            <!-- Cabeçalho da página com título e área do usuário -->
+            <h1><i class="fas fa-leaf"></i> Vitalis Saúde</h1>
+            <!-- Título com ícone de folha representando saúde e natureza -->
+            <p>Guia inteligente de serviços médicos · Dois Vizinhos/PR</p>
+            <!-- Subtítulo com localização -->
+            
+            <div id="userInfoArea" class="user-info hidden">
+                <!-- Área de informações do usuário logado, inicialmente escondida -->
+                <span class="user-email" id="userEmailDisplay"></span>
+                <!-- Span que exibirá o email do usuário -->
+                <button class="logout-btn" onclick="fazerLogout()"><i class="fas fa-sign-out-alt"></i> Sair</button>
+                <!-- Botão de logout com ícone e função associada -->
             </div>
-            <div class="health-item">
-                <div class="info">
-                    <h3>⏳ UPA 24 Horas</h3>
-                    <p><i class="fas fa-location-dot"></i> Av. Prefeito Dedi B. Montagner, 425 - Centro</p>
+        </header>
+
+        <div class="top-nav">
+            <!-- Barra de navegação superior com botões principais -->
+            <button id="loginButton" class="btn-secondary" onclick="abrirLogin()"><i class="fas fa-user-circle"></i> Entrar / Criar conta</button>
+            <!-- Botão de login, inicialmente visível quando usuário não está logado -->
+            <button class="btn-primary" onclick="abrirAgendamento()"><i class="fas fa-calendar-plus"></i> Agendar consulta</button>
+            <!-- Botão de agendamento, sempre visível -->
+        </div>
+
+        <div class="search-box">
+            <!-- Caixa de pesquisa para filtrar estabelecimentos -->
+            <i class="fas fa-search"></i>
+            <!-- Ícone de lupa -->
+            <input type="text" id="search" placeholder="Pesquise por unidade de saúde, hospital, farmácia ou posto...">
+            <!-- Campo de input para digitar o termo de busca -->
+        </div>
+
+        <!-- Seção de Hospitais e UPA -->
+        <div class="section-card" id="hospitais">
+            <div class="section-header">
+                <i class="fas fa-hospital-user"></i>
+                <!-- Ícone de hospital -->
+                <h2>Hospitais & UPA 24h</h2>
+                <!-- Título da seção -->
+            </div>
+            <div class="grid-list">
+                <!-- Lista de hospitais (dados estáticos) -->
+                <div class="health-item">
+                    <div class="info">
+                        <h3>🏥 Hospital Pró‑Vida</h3>
+                        <p><i class="fas fa-location-dot"></i> Rua Inês Pinzon, 611 - Centro Norte</p>
+                    </div>
+                    <div class="links">
+                        <a href="https://www.google.com/maps/search/?api=1&query=Rua+Inês+Pinzon+611,+85660-000+Dois+Vizinhos+-+PR" target="_blank" class="map-link"><i class="fas fa-map-marker-alt"></i> Abrir mapa</a>
+                    </div>
                 </div>
-                <div class="links"><a href="https://www.google.com/maps/search/?api=1&query=Av.+Prefeito+Dedi+B.+Montagner+425,+85660-000+Dois+Vizinhos+-+PR" target="_blank" class="map-link"><i class="fas fa-map-marker-alt"></i> Mapa</a></div>
+                <div class="health-item">
+                    <div class="info">
+                        <h3>⏳ UPA 24 Horas</h3>
+                        <p><i class="fas fa-location-dot"></i> Av. Prefeito Dedi B. Montagner, 425 - Centro</p>
+                    </div>
+                    <div class="links">
+                        <a href="https://www.google.com/maps/search/?api=1&query=Av.+Prefeito+Dedi+B.+Montagner+425,+85660-000+Dois+Vizinhos+-+PR" target="_blank" class="map-link"><i class="fas fa-map-marker-alt"></i> Mapa</a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Postos ESF -->
-    <div class="section-card" id="postos">
-        <div class="section-header">
-            <i class="fas fa-people-arrows"></i>
-            <h2>ESF · Postos de Saúde</h2>
+        <!-- Seção de Postos de Saúde (ESF) - será preenchida dinamicamente pelo JavaScript -->
+        <div class="section-card" id="postos">
+            <div class="section-header">
+                <i class="fas fa-people-arrows"></i>
+                <h2>ESF · Postos de Saúde</h2>
+            </div>
+            <div class="grid-list" id="postosList"></div>
+            <!-- Container onde os postos serão inseridos dinamicamente -->
         </div>
-        <div class="grid-list" id="postosList">
-            <!-- itens via JS ou inline para pesquisa, mas melhor estrutura inline: -->
+
+        <!-- Seção de Farmácias - será preenchida dinamicamente pelo JavaScript -->
+        <div class="section-card" id="farmacias">
+            <div class="section-header">
+                <i class="fas fa-prescription-bottle"></i>
+                <h2>Farmácias & Drogarias</h2>
+            </div>
+            <div class="grid-list" id="farmaciasList"></div>
+            <!-- Container onde as farmácias serão inseridas dinamicamente -->
         </div>
-    </div>
 
-    <!-- Farmácias -->
-    <div class="section-card" id="farmacias">
-        <div class="section-header">
-            <i class="fas fa-prescription-bottle"></i>
-            <h2>Farmácias & Drogarias</h2>
+        <!-- Banner de Emergências -->
+        <div class="emergency-banner">
+            <h2><i class="fas fa-ambulance"></i> Emergências 24h</h2>
+            <div class="emergency-contacts">
+                <span><i class="fas fa-phone-alt"></i> UPA: (46) 99911-9508</span>
+                <span><i class="fas fa-phone-alt"></i> SAMU: 192</span>
+                <span><i class="fas fa-shield-alt"></i> Polícia: 190</span>
+            </div>
         </div>
-        <div class="grid-list" id="farmaciasList"></div>
+        
+        <footer>Vitalis Saúde — tecnologia e acolhimento para Dois Vizinhos/PR</footer>
+        <!-- Rodapé da página -->
     </div>
 
-    <!-- Emergência -->
-    <div class="emergency-banner">
-        <h2><i class="fas fa-ambulance"></i> Emergências 24h</h2>
-        <div class="emergency-contacts">
-            <span><i class="fas fa-phone-alt"></i> UPA: (46) 99911-9508</span>
-            <span><i class="fas fa-phone-alt"></i> SAMU: 192</span>
-            <span><i class="fas fa-shield-alt"></i> Polícia: 190</span>
-        </div>
-    </div>
-    <footer>Vitalis Saúde — tecnologia e acolhimento para Dois Vizinhos/PR</footer>
-</div>
-
-<!-- MODAL LOGIN -->
-<div id="loginModal" class="modal-overlay">
-    <div class="modal-content">
-        <span class="close-modal" onclick="fecharModal('loginModal')">&times;</span>
-        <h3><i class="fas fa-lock"></i> Acessar conta</h3>
-        <input type="email" id="loginEmail" placeholder="E-mail">
-        <input type="password" id="loginSenha" placeholder="Senha">
-        <div id="loginError" class="error-message">❌ E-mail ou senha inválidos</div>
-        <button onclick="fazerLogin()">Entrar</button>
-        <div class="modal-footer">Não tem conta? <a onclick="mostrarCadastro()">Criar conta gratuita</a></div>
-    </div>
-</div>
-
-<!-- MODAL CADASTRO -->
-<div id="cadastroModal" class="modal-overlay">
-    <div class="modal-content">
-        <span class="close-modal" onclick="fecharModal('cadastroModal')">&times;</span>
-        <h3><i class="fas fa-user-plus"></i> Cadastro</h3>
-        <input type="text" id="cadastroNome" placeholder="Nome completo">
-        <input type="email" id="cadastroEmail" placeholder="E-mail">
-        <input type="password" id="cadastroSenha" placeholder="Senha">
-        <input type="password" id="cadastroConfirma" placeholder="Confirmar senha">
-        <div id="cadastroError" class="error-message"></div>
-        <button onclick="fazerCadastro()">Cadastrar</button>
-        <div class="modal-footer">Já tem cadastro? <a onclick="mostrarLogin()">Faça login</a></div>
-    </div>
-</div>
-
-<!-- MODAL AGENDAMENTO -->
-<div id="agendamentoModal" class="modal-overlay">
-    <div class="modal-content">
-        <span class="close-modal" onclick="fecharModal('agendamentoModal')">&times;</span>
-        <h3><i class="fas fa-calendar-check"></i> Novo agendamento</h3>
-        <input type="text" id="agendaNome" placeholder="Seu nome completo">
-        <input type="tel" id="agendaTelefone" placeholder="Telefone com DDD">
-        <select id="agendaLocal">
-            <option value="">Selecione a unidade</option>
-            <option value="Hospital Pró-Vida">Hospital Pró-Vida</option><option value="UPA 24h">UPA 24h</option>
-            <option value="ESF da Luz">ESF da Luz</option><option value="ESF da Colina">ESF da Colina</option>
-            <option value="ESF Santa Luzia">ESF Santa Luzia</option><option value="ESF Centro Norte">ESF Centro Norte</option>
-            <option value="ESF Sagrada Família">ESF Sagrada Família</option><option value="ESF Centro Sul">ESF Centro Sul</option>
-        </select>
-        <input type="date" id="agendaData">
-        <input type="time" id="agendaHora">
-        <select id="agendaEspecialidade">
-            <option value="">Especialidade</option>
-            <option value="Clínico Geral">Clínico Geral</option><option value="Pediatria">Pediatria</option>
-            <option value="Ginecologia">Ginecologia</option><option value="Odontologia">Odontologia</option><option value="Enfermagem">Enfermagem</option>
-        </select>
-        <button onclick="confirmarAgendamento()">Confirmar consulta</button>
-    </div>
-</div>
-
-<script>
-    // ---- dados dos estabelecimentos para preencher de forma elegante e manter busca ----
-    const postosData = [
-        { nome: "ESF da Luz", endereco: "Rua Paulo Antonio de Godoy, 271 - Bairro da Luz", mapa: "Rua+Paulo+Antonio+de+Godoy+271,+Da+Luz,+Dois+Vizinhos+-+PR" },
-        { nome: "ESF da Colina", endereco: "Rua dos Girassóis, 349 - Jardim da Colina", mapa: "Rua+dos+Girassóis+349,+Jardim+da+Colina,+Dois+Vizinhos+-+PR" },
-        { nome: "ESF Santa Luzia", endereco: "Rua Argentina - Santa Luzia", mapa: "Rua+Argentina,+Santa+Luzia,+Dois+Vizinhos+-+PR" },
-        { nome: "ESF Centro Norte", endereco: "Av. Dedi Barichello Montagner - Centro Norte", mapa: "Av.+Dedi+Barichello+Montagner,+Centro+Norte,+Dois+Vizinhos+-+PR" },
-        { nome: "ESF Sagrada Família", endereco: "Av. Rio Grande do Sul, 1291", mapa: "Av.+Rio+Grande+do+Sul+1291,+Sagrada+Família,+Dois+Vizinhos+-+PR" },
-        { nome: "ESF Centro Sul", endereco: "Rua Mato Grosso, 484 - Centro Sul", mapa: "Rua+Mato+Grosso+484,+Centro+Sul,+Dois+Vizinhos+-+PR" }
-    ];
-    const farmaciasData = [
-        { nome: "Farmácia São João", endereco: "Rua Sete de Setembro, 228 - Centro | Tel: (46) 3536-9696", mapa: "Rua+Sete+de+Setembro+228,+85660-000+Dois+Vizinhos+-+PR" },
-        { nome: "Farmácia Santo Antônio", endereco: "Rua Sete de Setembro, 249 - Centro", mapa: "Rua+Sete+de+Setembro+249,+85660-000+Dois+Vizinhos+-+PR" },
-        { nome: "Coperfarma", endereco: "Av. Dedi Barichello Montagner, 418 - Centro", mapa: "Av.+Dedi+Barichello+Montagner+418,+85660-000+Dois+Vizinhos+-+PR" },
-        { nome: "Farmácia São Rafael", endereco: "Av. Presidente Kennedy, 436 - Centro Sul", mapa: "Av.+Presidente+Kennedy+436,+85660-000+Dois+Vizinhos+-+PR" }
-    ];
-
-    function renderDynamicLists() {
-        const postosContainer = document.getElementById('postosList');
-        postosContainer.innerHTML = '';
-        postosData.forEach(p => {
-            const div = document.createElement('div');
-            div.className = 'health-item';
-            div.innerHTML = `<div class="info"><h3>⚕️ ${p.nome}</h3><p><i class="fas fa-location-dot"></i> ${p.endereco}</p></div><div class="links"><a href="https://www.google.com/maps/search/?api=1&query=${p.mapa}" target="_blank" class="map-link"><i class="fas fa-map-marker-alt"></i> Mapa</a></div>`;
-            postosContainer.appendChild(div);
-        });
-        const farmaContainer = document.getElementById('farmaciasList');
-        farmaContainer.innerHTML = '';
-        farmaciasData.forEach(f => {
-            const div = document.createElement('div');
-            div.className = 'health-item';
-            div.innerHTML = `<div class="info"><h3>💊 ${f.nome}</h3><p><i class="fas fa-location-dot"></i> ${f.endereco}</p></div><div class="links"><a href="https://www.google.com/maps/search/?api=1&query=${f.mapa}" target="_blank" class="map-link"><i class="fas fa-map-marker-alt"></i> Mapa</a></div>`;
-            farmaContainer.appendChild(div);
-        });
-    }
-    renderDynamicLists();
-
-    // STORAGE KEYS
-    const USUARIOS_KEY = 'vitalis_usuarios';
-    const LOGADO_KEY = 'vitalis_logado';
-
-    function getUsuarios() {
-        let usuarios = localStorage.getItem(USUARIOS_KEY);
-        if (!usuarios) {
-            const padrao = [{ id: 1, nome: "Usuário Teste", email: "teste@email.com", senha: "123456" }];
-            localStorage.setItem(USUARIOS_KEY, JSON.stringify(padrao));
-            return padrao;
-        }
-        return JSON.parse(usuarios);
-    }
-
-    function salvarUsuarios(users) { localStorage.setItem(USUARIOS_KEY, JSON.stringify(users)); }
-    function getUsuarioLogado() { const u = localStorage.getItem(LOGADO_KEY); return u ? JSON.parse(u) : null; }
-    function salvarSessao(user) { localStorage.setItem(LOGADO_KEY, JSON.stringify(user)); }
-    function removerSessao() { localStorage.removeItem(LOGADO_KEY); }
-
-    function autenticar(email, senha) {
-        const users = getUsuarios();
-        return users.find(u => u.email === email && u.senha === senha) || null;
-    }
-
-    function registrar(nome, email, senha) {
-        const users = getUsuarios();
-        if (users.some(u => u.email === email)) return false;
-        const novoId = users.length ? Math.max(...users.map(u => u.id)) + 1 : 1;
-        users.push({ id: novoId, nome, email, senha });
-        salvarUsuarios(users);
-        return true;
-    }
-
-    function atualizarUI() {
-        const user = getUsuarioLogado();
-        const userArea = document.getElementById('userInfoArea');
-        const loginBtn = document.getElementById('loginButton');
-        if (user) {
-            userArea.classList.remove('hidden');
-            loginBtn.classList.add('hidden');
-            document.getElementById('userEmailDisplay').innerHTML = `<i class="fas fa-user-md"></i> ${user.email}`;
-        } else {
-            userArea.classList.add('hidden');
-            loginBtn.classList.remove('hidden');
-        }
-    }
-
-    function fazerLogin() {
-        const email = document.getElementById('loginEmail').value.trim();
-        const senha = document.getElementById('loginSenha').value;
-        const user = autenticar(email, senha);
-        if (user) {
-            salvarSessao(user);
-            atualizarUI();
-            fecharModal('loginModal');
-            alert(`✨ Bem-vindo(a), ${user.nome}! Acesso refinado à saúde.`);
-        } else {
-            document.getElementById('loginError').style.display = 'block';
-        }
-    }
-
-    function fazerCadastro() {
-        const nome = document.getElementById('cadastroNome').value.trim();
-        const email = document.getElementById('cadastroEmail').value.trim();
-        const senha = document.getElementById('cadastroSenha').value;
-        const confirma = document.getElementById('cadastroConfirma').value;
-        const errDiv = document.getElementById('cadastroError');
-        if (!nome || !email || !senha) { errDiv.textContent = '❌ Preencha todos os campos'; errDiv.style.display = 'block'; return; }
-        if (senha !== confirma) { errDiv.textContent = '❌ As senhas não coincidem'; errDiv.style.display = 'block'; return; }
-        if (registrar(nome, email, senha)) {
-            const novo = autenticar(email, senha);
-            salvarSessao(novo);
-            atualizarUI();
-            fecharModal('cadastroModal');
-            alert(`🎉 Conta criada com sucesso! Bem-vindo(a) à Vitalis.`);
-        } else {
-            errDiv.textContent = '❌ E-mail já cadastrado.';
-            errDiv.style.display = 'block';
-        }
-    }
-
-    function fazerLogout() { removerSessao(); atualizarUI(); alert('🔒 Você saiu com segurança. Até breve!'); }
-
-    function abrirLogin() { document.getElementById('loginModal').style.display = 'flex'; }
-    function abrirAgendamento() {
-        if (!getUsuarioLogado()) { alert('🔐 É necessário estar logado para agendar consulta.'); abrirLogin(); return; }
-        document.getElementById('agendamentoModal').style.display = 'flex';
-    }
-    function fecharModal(id) { document.getElementById(id).style.display = 'none'; }
-    function mostrarCadastro() { fecharModal('loginModal'); document.getElementById('cadastroModal').style.display = 'flex'; }
-    function mostrarLogin() { fecharModal('cadastroModal'); document.getElementById('loginModal').style.display = 'flex'; }
-
-    function confirmarAgendamento() {
-        const nome = document.getElementById('agendaNome').value.trim();
-        const tel = document.getElementById('agendaTelefone').value.trim();
-        const local = document.getElementById('agendaLocal').value;
-        const data = document.getElementById('agendaData').value;
-        const hora = document.getElementById('agendaHora').value;
-        const esp = document.getElementById('agendaEspecialidade').value;
-        if (!nome || !tel || !local || !data || !hora || !esp) { alert('Por favor, preencha todos os campos para agendar.'); return; }
-        const userLog = getUsuarioLogado();
-        const dataFormatada = new Date(data).toLocaleDateString('pt-BR');
-        const win = window.open('about:blank', '_blank');
-        win.document.write(`
-            <html><head><title>Confirmação Vitalis</title><style>body{font-family:Inter;background:#eef3fc;text-align:center;padding:2rem} .card{background:white;border-radius:32px;max-width:500px;margin:auto;padding:2rem;box-shadow:0 20px 35px -10px rgba(0,0,0,0.1)} h2{color:#1e6f5c}</style></head>
-            <body><div class="card"><h2><i class="fas fa-check-circle"></i> Consulta agendada</h2><hr><p><strong>Paciente:</strong> ${nome}</p><p><strong>Local:</strong> ${local}</p><p><strong>Data:</strong> ${dataFormatada} às ${hora}</p><p><strong>Especialidade:</strong> ${esp}</p><p><strong>Contato:</strong> ${tel}</p><p>✅ Agendamento registrado com sucesso. Um lembrete será enviado.</p><br><small>Vitalis Saúde — Cuidado que transforma</small></div><script>setTimeout(()=>window.close(),4500);<\/script></body></html>
-        `);
-        fecharModal('agendamentoModal');
-        document.getElementById('agendaNome').value = '';
-        document.getElementById('agendaTelefone').value = '';
-        document.getElementById('agendaLocal').value = '';
-        document.getElementById('agendaData').value = '';
-        document.getElementById('agendaHora').value = '';
-        document.getElementById('agendaEspecialidade').value = '';
-    }
-
-    // BUSCA refinada
-    document.getElementById('search').addEventListener('input', function(e) {
-        const term = e.target.value.toLowerCase().trim();
-        const allCards = document.querySelectorAll('.section-card');
-        allCards.forEach(card => {
-            const items = card.querySelectorAll('.health-item');
-            let hasMatch = false;
-            items.forEach(item => {
-                const text = item.innerText.toLowerCase();
-                if (term === '' || text.includes(term)) {
-                    item.style.display = '';
-                    hasMatch = true;
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-            card.style.display = hasMatch || term === '' ? '' : 'none';
-        });
-    });
-
-    window.onclick = function(e) { if(e.target.classList.contains('modal-overlay')) e.target.style.display = 'none'; };
-    atualizarUI();
-    console.log("Vitalis Saúde — experiência refinada carregada.");
-</script>
-</body>
-</html>
+    <!-- MODAL DE LOGIN - Janela que aparece para login do usuário -->
+    <div id="loginModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="fecharModal('loginModal')">&times;</span>
+            <!-- Botão para fechar o modal -->
+            <h3><i class="fas fa-lock"></i> Acessar conta</h3>
+            <!-- Título do modal -->
+            <input type="email" id="loginEmail" placeholder="E-mail">
+            <!-- Campo para email -->
+            <input type="password" id="loginSenha" placeholder="Senha">
+            <!-- Campo para senha -->
+            <div id="loginError" class="error-message">❌ E-mail ou senha inválidos</div>
+            <!-- Mensagem de erro (inicialmente escondida) -->
+            <button onclick="fazerLogin()">Entrar</button>
+            <!-- Botão de login -->
+            <div class="modal-footer">Não tem conta? <a onclick="most
