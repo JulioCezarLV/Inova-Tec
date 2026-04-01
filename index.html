@@ -795,6 +795,18 @@
             /* Margem superior */
         }
 
+        /* Mensagem de sucesso para agendamentos */
+        .success-message {
+            background: #2c9b7a;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+
         /* Media query para telas menores que 760px (responsividade) */
         @media (max-width: 760px) {
             /* Ajusta a área do usuário para mobile */
@@ -960,4 +972,440 @@
             <!-- Mensagem de erro (inicialmente escondida) -->
             <button onclick="fazerLogin()">Entrar</button>
             <!-- Botão de login -->
-            <div class="modal-footer">Não tem conta? <a onclick="most
+            <div class="modal-footer">Não tem conta? <a onclick="mostrarCadastro()">Criar nova conta</a></div>
+            <!-- Link para ir para cadastro -->
+        </div>
+    </div>
+
+    <!-- MODAL DE CADASTRO - Janela para criar nova conta -->
+    <div id="cadastroModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="fecharModal('cadastroModal')">&times;</span>
+            <!-- Botão para fechar o modal -->
+            <h3><i class="fas fa-user-plus"></i> Criar conta</h3>
+            <!-- Título do modal -->
+            <input type="text" id="cadastroNome" placeholder="Nome completo">
+            <!-- Campo para nome -->
+            <input type="email" id="cadastroEmail" placeholder="E-mail">
+            <!-- Campo para email -->
+            <input type="password" id="cadastroSenha" placeholder="Senha (mínimo 6 caracteres)">
+            <!-- Campo para senha -->
+            <div id="cadastroError" class="error-message"></div>
+            <!-- Mensagem de erro (inicialmente escondida) -->
+            <button onclick="fazerCadastro()">Cadastrar</button>
+            <!-- Botão de cadastro -->
+            <div class="modal-footer">Já tem conta? <a onclick="mostrarLogin()">Fazer login</a></div>
+            <!-- Link para voltar ao login -->
+        </div>
+    </div>
+
+    <!-- MODAL DE AGENDAMENTO - Janela para agendar consulta -->
+    <div id="agendamentoModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="fecharModal('agendamentoModal')">&times;</span>
+            <!-- Botão para fechar o modal -->
+            <h3><i class="fas fa-calendar-check"></i> Agendar consulta</h3>
+            <!-- Título do modal -->
+            <div id="agendamentoSuccess" class="success-message"></div>
+            <!-- Mensagem de sucesso (inicialmente escondida) -->
+            <select id="especialidade">
+                <option value="">Selecione a especialidade</option>
+                <option value="Clínica Geral">Clínica Geral</option>
+                <option value="Pediatria">Pediatria</option>
+                <option value="Ginecologia">Ginecologia</option>
+                <option value="Cardiologia">Cardiologia</option>
+                <option value="Dermatologia">Dermatologia</option>
+                <option value="Ortopedia">Ortopedia</option>
+            </select>
+            <!-- Select para escolher especialidade -->
+            <input type="date" id="dataConsulta">
+            <!-- Campo para data da consulta -->
+            <input type="time" id="horaConsulta">
+            <!-- Campo para hora da consulta -->
+            <div id="agendamentoError" class="error-message">Por favor, preencha todos os campos</div>
+            <!-- Mensagem de erro -->
+            <button onclick="fazerAgendamento()">Confirmar agendamento</button>
+            <!-- Botão de confirmação -->
+        </div>
+    </div>
+
+    <script>
+        // ==================== DADOS ESTÁTICOS ====================
+        // Dados dos Postos de Saúde (ESF) de Dois Vizinhos/PR
+        const postosSaude = [
+            { nome: "ESF São Cristóvão", endereco: "Rua João Paulo II, 123 - São Cristóvão" },
+            { nome: "ESF Centro", endereco: "Av. Presidente Kennedy, 456 - Centro" },
+            { nome: "ESF Jardim América", endereco: "Rua das Acácias, 789 - Jardim América" },
+            { nome: "ESF Santo Antônio", endereco: "Rua Santo Antônio, 321 - Santo Antônio" },
+            { nome: "ESF Primavera", endereco: "Rua Primavera, 654 - Primavera" }
+        ];
+
+        // Dados das Farmácias de Dois Vizinhos/PR
+        const farmacias = [
+            { nome: "Farmácia Nissei", endereco: "Av. Prefeito Dedi B. Montagner, 1000 - Centro" },
+            { nome: "Drogaria São João", endereco: "Rua Inês Pinzon, 450 - Centro Norte" },
+            { nome: "Farmácia Popular", endereco: "Rua XV de Novembro, 200 - Centro" },
+            { nome: "Drogaria Brasil", endereco: "Av. Presidente Kennedy, 850 - Centro" },
+            { nome: "Farmácia Vitalis", endereco: "Rua Paraná, 300 - Centro" }
+        ];
+
+        // ==================== FUNÇÕES DE RENDERIZAÇÃO ====================
+        // Função para renderizar os postos de saúde na tela
+        function renderizarPostos() {
+            const container = document.getElementById('postosList');
+            if (!container) return;
+            
+            container.innerHTML = postosSaude.map(posto => `
+                <div class="health-item">
+                    <div class="info">
+                        <h3>🏥 ${posto.nome}</h3>
+                        <p><i class="fas fa-location-dot"></i> ${posto.endereco}</p>
+                    </div>
+                    <div class="links">
+                        <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(posto.endereco + ', Dois Vizinhos - PR')}" target="_blank" class="map-link"><i class="fas fa-map-marker-alt"></i> Ver no mapa</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Função para renderizar as farmácias na tela
+        function renderizarFarmacias() {
+            const container = document.getElementById('farmaciasList');
+            if (!container) return;
+            
+            container.innerHTML = farmacias.map(farmacia => `
+                <div class="health-item">
+                    <div class="info">
+                        <h3>💊 ${farmacia.nome}</h3>
+                        <p><i class="fas fa-location-dot"></i> ${farmacia.endereco}</p>
+                    </div>
+                    <div class="links">
+                        <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(farmacia.endereco + ', Dois Vizinhos - PR')}" target="_blank" class="map-link"><i class="fas fa-map-marker-alt"></i> Ver no mapa</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ==================== SISTEMA DE AUTENTICAÇÃO ====================
+        // Inicializar banco de dados de usuários no localStorage
+        function inicializarUsuarios() {
+            if (!localStorage.getItem('usuarios')) {
+                const usuariosIniciais = [
+                    { id: 1, nome: "Usuário Teste", email: "teste@vitalis.com", senha: "123456" }
+                ];
+                localStorage.setItem('usuarios', JSON.stringify(usuariosIniciais));
+            }
+        }
+
+        // Verificar se há usuário logado
+        function verificarSessao() {
+            const usuarioLogado = localStorage.getItem('usuarioLogado');
+            const loginButton = document.getElementById('loginButton');
+            const userInfoArea = document.getElementById('userInfoArea');
+            const userEmailDisplay = document.getElementById('userEmailDisplay');
+            
+            if (usuarioLogado) {
+                const usuario = JSON.parse(usuarioLogado);
+                if (loginButton) loginButton.classList.add('hidden');
+                if (userInfoArea) userInfoArea.classList.remove('hidden');
+                if (userEmailDisplay) userEmailDisplay.textContent = usuario.email;
+            } else {
+                if (loginButton) loginButton.classList.remove('hidden');
+                if (userInfoArea) userInfoArea.classList.add('hidden');
+            }
+        }
+
+        // Função de login
+        function fazerLogin() {
+            const email = document.getElementById('loginEmail').value.trim();
+            const senha = document.getElementById('loginSenha').value;
+            const loginError = document.getElementById('loginError');
+            
+            if (!email || !senha) {
+                loginError.style.display = 'block';
+                loginError.textContent = '❌ Preencha todos os campos';
+                return;
+            }
+            
+            const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+            const usuario = usuarios.find(u => u.email === email && u.senha === senha);
+            
+            if (usuario) {
+                localStorage.setItem('usuarioLogado', JSON.stringify(usuario));
+                fecharModal('loginModal');
+                verificarSessao();
+                // Limpar campos
+                document.getElementById('loginEmail').value = '';
+                document.getElementById('loginSenha').value = '';
+                loginError.style.display = 'none';
+                mostrarMensagem('Login realizado com sucesso!', 'success');
+            } else {
+                loginError.style.display = 'block';
+                loginError.textContent = '❌ E-mail ou senha inválidos';
+            }
+        }
+
+        // Função de cadastro
+        function fazerCadastro() {
+            const nome = document.getElementById('cadastroNome').value.trim();
+            const email = document.getElementById('cadastroEmail').value.trim();
+            const senha = document.getElementById('cadastroSenha').value;
+            const cadastroError = document.getElementById('cadastroError');
+            
+            if (!nome || !email || !senha) {
+                cadastroError.style.display = 'block';
+                cadastroError.textContent = '❌ Preencha todos os campos';
+                return;
+            }
+            
+            if (senha.length < 6) {
+                cadastroError.style.display = 'block';
+                cadastroError.textContent = '❌ A senha deve ter no mínimo 6 caracteres';
+                return;
+            }
+            
+            const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+            
+            if (usuarios.some(u => u.email === email)) {
+                cadastroError.style.display = 'block';
+                cadastroError.textContent = '❌ Este e-mail já está cadastrado';
+                return;
+            }
+            
+            const novoUsuario = {
+                id: usuarios.length + 1,
+                nome: nome,
+                email: email,
+                senha: senha
+            };
+            
+            usuarios.push(novoUsuario);
+            localStorage.setItem('usuarios', JSON.stringify(usuarios));
+            
+            // Auto login após cadastro
+            localStorage.setItem('usuarioLogado', JSON.stringify(novoUsuario));
+            fecharModal('cadastroModal');
+            verificarSessao();
+            
+            // Limpar campos
+            document.getElementById('cadastroNome').value = '';
+            document.getElementById('cadastroEmail').value = '';
+            document.getElementById('cadastroSenha').value = '';
+            cadastroError.style.display = 'none';
+            
+            mostrarMensagem('Cadastro realizado com sucesso!', 'success');
+        }
+
+        // Função de logout
+        function fazerLogout() {
+            localStorage.removeItem('usuarioLogado');
+            verificarSessao();
+            mostrarMensagem('Você saiu da sua conta', 'info');
+        }
+
+        // ==================== FUNÇÕES DE AGENDAMENTO ====================
+        // Função para fazer agendamento
+        function fazerAgendamento() {
+            const usuarioLogado = localStorage.getItem('usuarioLogado');
+            const especialidade = document.getElementById('especialidade').value;
+            const data = document.getElementById('dataConsulta').value;
+            const hora = document.getElementById('horaConsulta').value;
+            const agendamentoError = document.getElementById('agendamentoError');
+            const agendamentoSuccess = document.getElementById('agendamentoSuccess');
+            
+            if (!usuarioLogado) {
+                fecharModal('agendamentoModal');
+                abrirLogin();
+                mostrarMensagem('Você precisa estar logado para agendar uma consulta', 'warning');
+                return;
+            }
+            
+            if (!especialidade || !data || !hora) {
+                agendamentoError.style.display = 'block';
+                agendamentoSuccess.style.display = 'none';
+                return;
+            }
+            
+            const usuario = JSON.parse(usuarioLogado);
+            const agendamento = {
+                id: Date.now(),
+                usuarioEmail: usuario.email,
+                especialidade: especialidade,
+                data: data,
+                hora: hora,
+                dataAgendamento: new Date().toISOString()
+            };
+            
+            // Salvar agendamento no localStorage
+            let agendamentos = JSON.parse(localStorage.getItem('agendamentos')) || [];
+            agendamentos.push(agendamento);
+            localStorage.setItem('agendamentos', JSON.stringify(agendamentos));
+            
+            // Limpar campos
+            document.getElementById('especialidade').value = '';
+            document.getElementById('dataConsulta').value = '';
+            document.getElementById('horaConsulta').value = '';
+            
+            // Mostrar mensagem de sucesso
+            agendamentoSuccess.style.display = 'block';
+            agendamentoSuccess.innerHTML = `✅ Agendamento confirmado!<br>${especialidade} - ${new Date(data).toLocaleDateString('pt-BR')} às ${hora}`;
+            agendamentoError.style.display = 'none';
+            
+            // Fechar modal após 3 segundos
+            setTimeout(() => {
+                fecharModal('agendamentoModal');
+                agendamentoSuccess.style.display = 'none';
+            }, 3000);
+        }
+
+        // ==================== FUNÇÕES DE BUSCA ====================
+        // Função para filtrar itens pela pesquisa
+        function filtrarItens() {
+            const termoBusca = document.getElementById('search').value.toLowerCase();
+            
+            // Filtrar postos
+            const postosFiltrados = postosSaude.filter(posto => 
+                posto.nome.toLowerCase().includes(termoBusca) || 
+                posto.endereco.toLowerCase().includes(termoBusca)
+            );
+            
+            // Filtrar farmácias
+            const farmaciasFiltradas = farmacias.filter(farmacia => 
+                farmacia.nome.toLowerCase().includes(termoBusca) || 
+                farmacia.endereco.toLowerCase().includes(termoBusca)
+            );
+            
+            // Renderizar apenas os filtrados
+            const containerPostos = document.getElementById('postosList');
+            const containerFarmacias = document.getElementById('farmaciasList');
+            
+            if (containerPostos) {
+                containerPostos.innerHTML = postosFiltrados.map(posto => `
+                    <div class="health-item">
+                        <div class="info">
+                            <h3>🏥 ${posto.nome}</h3>
+                            <p><i class="fas fa-location-dot"></i> ${posto.endereco}</p>
+                        </div>
+                        <div class="links">
+                            <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(posto.endereco + ', Dois Vizinhos - PR')}" target="_blank" class="map-link"><i class="fas fa-map-marker-alt"></i> Ver no mapa</a>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            if (containerFarmacias) {
+                containerFarmacias.innerHTML = farmaciasFiltradas.map(farmacia => `
+                    <div class="health-item">
+                        <div class="info">
+                            <h3>💊 ${farmacia.nome}</h3>
+                            <p><i class="fas fa-location-dot"></i> ${farmacia.endereco}</p>
+                        </div>
+                        <div class="links">
+                            <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(farmacia.endereco + ', Dois Vizinhos - PR')}" target="_blank" class="map-link"><i class="fas fa-map-marker-alt"></i> Ver no mapa</a>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // ==================== FUNÇÕES DE MODAL ====================
+        // Função para abrir modal de login
+        function abrirLogin() {
+            document.getElementById('loginModal').style.display = 'flex';
+        }
+        
+        // Função para abrir modal de agendamento
+        function abrirAgendamento() {
+            document.getElementById('agendamentoModal').style.display = 'flex';
+        }
+        
+        // Função para mostrar modal de cadastro
+        function mostrarCadastro() {
+            fecharModal('loginModal');
+            document.getElementById('cadastroModal').style.display = 'flex';
+        }
+        
+        // Função para mostrar modal de login a partir do cadastro
+        function mostrarLogin() {
+            fecharModal('cadastroModal');
+            document.getElementById('loginModal').style.display = 'flex';
+        }
+        
+        // Função para fechar qualquer modal
+        function fecharModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        }
+        
+        // Função para mostrar mensagem temporária
+        function mostrarMensagem(mensagem, tipo) {
+            // Criar elemento de mensagem flutuante
+            const msgDiv = document.createElement('div');
+            msgDiv.style.position = 'fixed';
+            msgDiv.style.bottom = '20px';
+            msgDiv.style.right = '20px';
+            msgDiv.style.padding = '12px 24px';
+            msgDiv.style.borderRadius = '12px';
+            msgDiv.style.fontWeight = '500';
+            msgDiv.style.zIndex = '1001';
+            msgDiv.style.animation = 'fadeUp 0.3s ease';
+            
+            if (tipo === 'success') {
+                msgDiv.style.backgroundColor = '#2c9b7a';
+                msgDiv.style.color = 'white';
+            } else if (tipo === 'warning') {
+                msgDiv.style.backgroundColor = '#e67e22';
+                msgDiv.style.color = 'white';
+            } else {
+                msgDiv.style.backgroundColor = '#3498db';
+                msgDiv.style.color = 'white';
+            }
+            
+            msgDiv.textContent = mensagem;
+            document.body.appendChild(msgDiv);
+            
+            setTimeout(() => {
+                msgDiv.style.opacity = '0';
+                setTimeout(() => {
+                    document.body.removeChild(msgDiv);
+                }, 300);
+            }, 3000);
+        }
+
+        // ==================== INICIALIZAÇÃO ====================
+        // Função principal que inicializa tudo
+        function inicializar() {
+            inicializarUsuarios();
+            renderizarPostos();
+            renderizarFarmacias();
+            verificarSessao();
+            
+            // Adicionar evento de pesquisa
+            const searchInput = document.getElementById('search');
+            if (searchInput) {
+                searchInput.addEventListener('input', filtrarItens);
+            }
+            
+            // Fechar modais clicando fora
+            window.onclick = function(event) {
+                if (event.target.classList.contains('modal-overlay')) {
+                    event.target.style.display = 'none';
+                }
+            };
+            
+            // Prevenir data passada no input de data
+            const dataInput = document.getElementById('dataConsulta');
+            if (dataInput) {
+                const hoje = new Date().toISOString().split('T')[0];
+                dataInput.min = hoje;
+            }
+        }
+        
+        // Iniciar tudo quando a página carregar
+        document.addEventListener('DOMContentLoaded', inicializar);
+    </script>
+</body>
+
+</html>
